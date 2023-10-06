@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>计算机系统基础</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,7 +32,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -62,24 +62,29 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -117,9 +122,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -981,6 +986,335 @@ int main()
 <p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202309271742511.png" alt="" /></p>
 <p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202309271742921.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第四周乘除运算及浮点数运算"><a class="header" href="#第四周乘除运算及浮点数运算">第四周乘除运算及浮点数运算</a></h1>
+<ul>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#%E7%AC%AC1%E8%AE%B2-%E6%95%B4%E6%95%B0%E4%B9%98%E6%B3%95%E8%BF%90%E7%AE%97">第1讲 整数乘法运算</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#%E7%AC%AC2%E8%AE%B2-%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97">第2讲 整数除法运算</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#%E7%AC%AC3%E8%AE%B2-%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97">第3讲 浮点数运算</a>
+<ul>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#%E9%99%84%E5%BD%95floatdouble%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E7%B2%BE%E5%BA%A6%E8%8C%83%E5%9B%B4%E9%97%AE%E9%A2%98">附录float、double类型数据精度范围问题</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#%E9%99%84%E5%BD%95%E5%AE%9A%E7%82%B9%E5%B0%8F%E6%95%B0%E5%92%8C%E6%B5%AE%E7%82%B9%E5%B0%8F%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB">附录定点小数和浮点小数的区别</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#1-%E6%B5%AE%E7%82%B9%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%9723%E5%88%86%E9%92%9F">1. 浮点加减运算（23分钟）</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#2-%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E7%9A%84%E7%B2%BE%E5%BA%A622%E5%88%86%E9%92%9F">2. 浮点运算的精度（22分钟）</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#3-%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E7%B2%BE%E5%BA%A6%E4%B8%BE%E4%BE%8B16%E5%88%86%E9%92%9F">3. 浮点运算精度举例（16分钟）</a></li>
+</ul>
+</li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#%E7%AC%AC%E5%9B%9B%E5%91%A8%E5%B0%8F%E6%B5%8B%E9%AA%8C">第四周小测验</a>
+<ul>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#1%E5%8D%95%E9%80%8905%E5%88%86">1单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#2%E5%8D%95%E9%80%8905%E5%88%86">2单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#3%E5%8D%95%E9%80%8905%E5%88%86">3单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#4%E5%8D%95%E9%80%8905%E5%88%86">4单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#5%E5%8D%95%E9%80%8905%E5%88%86">5单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#6%E5%8D%95%E9%80%8905%E5%88%86">6单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#7%E5%8D%95%E9%80%8905%E5%88%86">7单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#8%E5%8D%95%E9%80%8905%E5%88%86">8单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#9%E5%8D%95%E9%80%8905%E5%88%86">9单选(0.5分)</a></li>
+<li><a href="%E7%AC%AC%E5%9B%9B%E5%91%A8%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97%E5%8F%8A%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97.html#10%E5%A4%9A%E9%80%8905%E5%88%86">10多选(0.5分)</a></li>
+</ul>
+</li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/cs/course1-week4.pdf" target="_blank">在线阅读第四周乘除运算及浮点数运算PDF文档</a></p>
+<h2 id="第1讲-整数乘法运算"><a class="header" href="#第1讲-整数乘法运算">第1讲 整数乘法运算</a></h2>
+<p>对于C语言程序中的表达式z=x*y，其中x,y和z都是32位的int型整数，z的取值为x*y的64位乘积中的低32位。</p>
+<p>在计算机内部，一个整数x的平方可能是负数，这是因为在计算机中其结果取的是x*x的低n位乘积而高n位中的有效数位被丢弃而造成的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310050914772.png" alt="" /></p>
+<p>以下是关于整数乘运算（z=x*y）结果<strong>溢出判断规则</strong>的描述，其中错误的是（ A  ）。</p>
+<p>A.如果是C语言程序员，可以采用&quot;若<code>(y!=0 || x==z/y)</code>，则结果z不溢出&quot;的规则。</p>
+<p>B.若x,y,z为无符号整数，则编译器可以采用&quot;若z的高n为全0，则不溢出，否则溢出&quot;的规则。</p>
+<p>C.若x,y,z为带符号整数，则编译器可以采用&quot;若z的高n+1位为全0或全1，则不溢出，否则溢出&quot;的规则。</p>
+<p>D.高级语言程序员使用高级语言语句实现溢出判断，而编译器使用若干条指令进行溢出判断。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310050927530.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310050933750.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310050941530.png" alt="" /></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+using namespace std;
+
+int is_mul_overflow(int a, int b) {
+    if( a &gt;= 0 &amp;&amp; b &gt;=0  ) {
+        return INT_MAX / a &lt; b;
+    }
+    else if( a &lt; 0 &amp;&amp; b &lt; 0 ) {
+        return INT_MAX / a &gt; b;
+    }
+    else if( a * b == INT_MIN ) {
+        return 0;
+    }
+    else {
+        return a &lt; 0 ? is_mul_overflow(-a, b) : is_mul_overflow(a, -b);
+    }
+}
+
+void check(int n1, int n2, int expect_ret, int case_n) {
+    int ret = is_mul_overflow(n1, n2);
+    if( expect_ret == is_mul_overflow(n1, n2) )
+        printf(&quot;test pass case:%d\n&quot;,case_n);
+    else
+        printf(&quot;test fail case:%d\n&quot;,case_n);
+}
+
+int main() {
+    int case_n = 0;
+    check(0x00000001, 0x0000000f, 0x0000000f, ++case_n);
+
+    printf(&quot;%x\n&quot;, INT_MIN);
+    printf(&quot;%x\n&quot;, INT_MAX);
+    int result = -1*1;
+    printf(&quot;%d&quot;,result);
+    return 0;
+}
+</code></pre>
+<pre><code>test fail case:1
+80000000
+7fffffff
+-1
+</code></pre>
+<p>-1（1111）乘以+1（0001）结果（00001111）溢出？？？？</p>
+<p>取负指令neg：各位取反末位加一</p>
+<p>判断两int相乘是否溢出，目前找到的最正确方式：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+using namespace std;
+
+int is_mul_overflow(int a, int b) {
+    if( a &gt;= 0 &amp;&amp; b &gt;=0  ) {
+        return INT_MAX / a &lt; b;
+    }
+    else if( a &lt; 0 &amp;&amp; b &lt; 0 ) {
+        return INT_MAX / a &gt; b;
+    }
+    else if( a * b == INT_MIN ) {
+        return 0;
+    }
+    else {
+        return a &lt; 0 ? is_mul_overflow(-a, b) : is_mul_overflow(a, -b);
+    }
+}
+
+void check(int n1, int n2, int expect_ret, int case_n) {
+    int ret = is_mul_overflow(n1, n2);
+    if( expect_ret == is_mul_overflow(n1, n2) )
+        printf(&quot;test pass case:%d\n&quot;,case_n);
+    else
+        printf(&quot;test fail case:%d\n&quot;,case_n);
+}
+
+int main() {
+    int case_n = 0;
+    check(1, 0x80000000, 0, ++case_n);
+    check(-1, 0x80000000, 1, ++case_n);
+    check(0x80000000, -1, 1, ++case_n);
+    check(-1, 0x80000001, 0, ++case_n);
+    check(0x80000001, -1, 0, ++case_n);
+    check(1, 0x7fffffff, 0, ++case_n);
+    check(0x7fffffff, 1, 0, ++case_n);
+    check(2, 0x7fffffff, 1, ++case_n);
+    check(0x7fffffff, 2, 1, ++case_n);
+    check(0x7fffffff, -1, 0, ++case_n);
+    check(-1, 0x7fffffff, 0, ++case_n);
+    check(2, 0xc0000000, 0, ++case_n);
+    check(0xc0000000, 2, 0, ++case_n);
+    check(0x70000000, 2, 1, ++case_n);
+    check(2, 0x70000000, 1, ++case_n);
+
+    printf(&quot;%x\n&quot;, INT_MIN);
+    printf(&quot;%x\n&quot;, INT_MAX);
+    return 0;
+}
+
+</code></pre>
+<pre><code>test pass case:1
+test pass case:2
+test pass case:3
+test pass case:4
+test pass case:5
+test pass case:6
+test pass case:7
+test pass case:8
+test pass case:9
+test pass case:10
+test pass case:11
+test pass case:12
+test pass case:13
+test pass case:14
+test pass case:15
+80000000
+7fffffff
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310051008063.png" alt="" /></p>
+<pre><code class="language-cpp">int copy_array(int* array,int count)
+{
+    int *myarray = (int*)malloc(count*sizeof(int));
+    if(myarray==NULL)
+    {
+        return -1;
+    }
+    for(int i=0;i&lt;count;i++)
+        myarray[i]=array[i];
+    return count;
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310051010835.png" alt="" /></p>
+<h2 id="第2讲-整数除法运算"><a class="header" href="#第2讲-整数除法运算">第2讲 整数除法运算</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310051039501.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310051047171.png" alt="" /></p>
+<pre><code class="language-cpp">int main() {
+    int a = 0x80000000;
+    int b = a/-1;
+    printf(&quot;%d\n&quot;,b);//-2147483648
+    printf(&quot;%d\n&quot;,-a);//-2147483648
+    int c = -1;
+    int d = a/c;
+    printf(&quot;%d&quot;,d);//这里无输出结果
+    return 0;
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310051052329.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310051105984.png" alt="" /></p>
+<p>对于C语言程序中的一个char型变量x，若x=-15，则x/4的机器数为（  1111 1101   ）。</p>
+<p>这里不能整除，需要添加偏置量。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310051108144.png" alt="" /></p>
+<h2 id="第3讲-浮点数运算"><a class="header" href="#第3讲-浮点数运算">第3讲 浮点数运算</a></h2>
+<h3 id="附录floatdouble类型数据精度范围问题"><a class="header" href="#附录floatdouble类型数据精度范围问题">附录float、double类型数据精度范围问题</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>类型</th><th>比特数</th><th>有效数字（精度）</th><th>数值范围</th></tr></thead><tbody>
+<tr><td>float</td><td>32</td><td>6~7</td><td>-3.4*10^38~3.4*10^38</td></tr>
+<tr><td>double</td><td>64</td><td>15~16</td><td>-1.79*10^308~1.79*10^308</td></tr>
+<tr><td>long double</td><td>128/</td><td>18~19</td><td>-1.2*10^4932~1.2*10^4932</td></tr>
+</tbody></table>
+</div>
+<p>在计算机中，浮点数类型（如 <code>float</code> 和 <code>double</code>）的精度是由其存储格式和位数决定的。</p>
+<p>对于 <code>float</code> 类型，它通常使用 IEEE 754 单精度浮点数表示法，占用 32 位（4 字节）存储空间。其中，1 位用于表示符号位，8 位用于指数，剩下的 23 位用于表示尾数。这意味着 <code>float</code> 类型可以提供大约 7 位有效数字的精度。</p>
+<p>而对于 <code>double</code> 类型，它通常使用 IEEE 754 双精度浮点数表示法，占用 64 位（8 字节）存储空间。其中，1 位用于表示符号位，11 位用于指数，剩下的 52 位用于表示尾数。这使得 <code>double</code> 类型可以提供大约 15 位有效数字的精度。</p>
+<p>需要注意的是，这些数字精度是近似值，因为浮点数的存储和计算都涉及到舍入误差。在进行浮点数计算时，可能会出现舍入误差导致精度损失。因此，在对浮点数进行比较和精确计算时，需要注意处理舍入误差可能引起的问题。</p>
+<p>如果需要更高精度的计算，可以考虑使用其他表示方法，如使用任意精度的库（例如 <code>BigDecimal</code> 类型）或进行符号位、指数和尾数的自定义存储。这样可以在需要时灵活调整精度要求。但请注意，这些方法可能会牺牲计算速度和内存开销。</p>
+<p><code>float</code> 类型使用 IEEE 754 单精度浮点数表示法，其中尾数部分占据了 23 位。为了理解为什么 <code>float</code> 类型可以提供大约 7 位有效数字的精度，我们需要了解浮点数的表示方式。</p>
+<p>在 IEEE 754 单精度浮点数表示法中，浮点数被分为三个部分：符号位、指数部分和尾数部分。符号位用于表示正数或负数，指数部分用于调整浮点数的大小范围，而尾数部分则表示浮点数的精度。</p>
+<p>尾数部分占据了 23 位，其中最高位默认为 1，并且在存储时省略了这个最高位。这意味着尾数部分可以表示 24 个二进制位，即 2^24 = 16,777,216 种不同的值。然而，由于尾数部分只有 23 位，因此只能表示 2^23 = 8,388,608 个不同的值。</p>
+<p>有效数字的位数可以通过以下公式计算：log10(2^N)，其中 N 表示尾数部分的位数。对于 <code>float</code> 类型，N = 23，因此有效数字的位数为 log10(2^23) ≈ 7.22。所以，<code>float</code> 类型可以提供大约 7 位有效数字的精度。</p>
+<p>请注意，这个数字是一个近似值，并且在进行浮点数计算时可能会存在舍入误差。因此，在进行精确计算或比较时，需要考虑舍入误差可能带来的影响。</p>
+<p>2^52一共16位，故double类型数据的精度为15~16位。</p>
+<h3 id="附录定点小数和浮点小数的区别"><a class="header" href="#附录定点小数和浮点小数的区别">附录定点小数和浮点小数的区别</a></h3>
+<p>定点小数和浮点小数是两种不同的表示和处理实数的方法。</p>
+<ol>
+<li>
+<p>定点小数：</p>
+<ul>
+<li>定点小数使用固定的小数点位置来表示实数。小数点位置在数值中是固定的，通常是在最后一位或者是固定的位置。例如，假设小数点位置固定在整数部分和小数部分之间的某个位置，如 &quot;123.456&quot; 中的小数点位置。</li>
+<li>定点小数的表示方式更直观和易于理解，因为小数点位置是固定的，有助于对数值的理解和操作。然而，它的范围和精度是固定的，不够灵活。</li>
+<li>定点小数在计算机中通常使用固定位数的整数表示，其中一个固定的位数表示小数点的位置。这样可以通过位移和固定精度的整数运算来处理定点小数。</li>
+</ul>
+</li>
+<li>
+<p>浮点小数：</p>
+<ul>
+<li>浮点小数使用科学计数法的形式来表示实数。它由三个部分组成：符号位、尾数部分和指数部分。浮点小数的小数点位置是可变的，通过指数部分来表示。</li>
+<li>浮点小数的表示方式更适合处理非常大或非常小的数值范围，因为指数部分可以调整小数点的位置，提供了更大的数值范围和灵活性。</li>
+<li>浮点小数在计算机中通常使用 IEEE 754 标准（单精度或双精度）来表示，其中尾数部分和指数部分以二进制形式存储，并进行特定的规范化处理和舍入操作。</li>
+</ul>
+</li>
+</ol>
+<p>总结：
+定点小数和浮点小数是不同的数值表示方式。定点小数使用固定的小数点位置，适合处理小范围和固定精度的数值。浮点小数使用科学计数法，通过指数来调整小数点位置，适合处理较大范围和可变精度的数值。浮点小数的表示方式更复杂，计算也会涉及舍入误差，但提供了更大的数值范围和灵活性。</p>
+<h3 id="1-浮点加减运算23分钟"><a class="header" href="#1-浮点加减运算23分钟">1. 浮点加减运算（23分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310060950070.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310060953105.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061000241.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
+int main()
+{
+    int a=1,b=0;
+    printf(&quot;Division by zero:%d\n&quot;,a/b);
+    getchar();
+    return 0;
+}
+</code></pre>
+<pre><code>Process returned -1073741676 (0xC0000094)   execution time : 0.543 s
+</code></pre>
+<p>整数除0的结果无法用01序列表示</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
+
+int main()
+{
+    double x=1.0,y=-1.0,z=0.0;
+    printf(&quot;Division by zero:%f  %f\n&quot;,x/z,y/z);
+    getchar();
+    return 0;
+}
+</code></pre>
+<pre><code>Division by zero:1.#INF00  -1.#INF00
+</code></pre>
+<p>浮点数除0可以表示为无穷大</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061003692.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061006889.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061009019.png" alt="" /></p>
+<h3 id="2-浮点运算的精度22分钟"><a class="header" href="#2-浮点运算的精度22分钟">2. 浮点运算的精度（22分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061012611.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061014097.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061024699.png" alt="" /></p>
+<p>附加位为01时，要强制结果为偶数，末位需要加1</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061027943.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061031132.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061037684.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061043267.png" alt="" /></p>
+<h3 id="3-浮点运算精度举例16分钟"><a class="header" href="#3-浮点运算精度举例16分钟">3. 浮点运算精度举例（16分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061045145.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061049995.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061050761.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061056713.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310061204194.png" alt="" /></p>
+<h2 id="第四周小测验"><a class="header" href="#第四周小测验">第四周小测验</a></h2>
+<h3 id="1单选05分"><a class="header" href="#1单选05分">1单选(0.5分)</a></h3>
+<p>若在一个8位计算机中完成x+2y的运算，假定变量x和y的机器数用补码表示为<code>[x]补=44H，[y]补= DCH</code>，则x+2y的机器数及相应的溢出标志OF分别是（ FCH、0）。</p>
+<p>解析： x和y的机器数是用补码表示的，分别是0100 0100、1101 1100，因为是做x+2y，所以，先对y算术左移一位，然后和x相加，此时sub=0，即0100 0100 + 1011 1000+0 = 1111 1100（FCH），<strong>因为两个加数符号相异，所以不会发生溢出，即OF=0</strong>。</p>
+<h3 id="2单选05分"><a class="header" href="#2单选05分">2单选(0.5分)</a></h3>
+<p>若在一个8位计算机中完成x–2y，假定变量x和y的机器数用补码表示为<code>[x]补=44H，[y]补= DCH</code>，则x–2y的机器数及相应的溢出标志OF分别是（8CH、1 ）。</p>
+<p>解析： x和y的机器数是用补码表示的，分别是0100 0100、1101 1100，因为是做x–2y，所以，先对y算术左移一位，得1011 1000，然后各位取反，再和x相加，此时sub=1，即0100 0100 + 0100 0111+1 = 1000 1100（8CH），<strong>因为两个加数符号都为0，而结果符号为1，所以发生了溢出，即OF=1</strong>。</p>
+<h3 id="3单选05分"><a class="header" href="#3单选05分">3单选(0.5分)</a></h3>
+<p>若在一个8位计算机中完成x/2+2y，假定变量x和y的机器数用补码表示为<code>[x]补=44H，[y]补= DCH</code>，则x/2+2y的机器数及相应的溢出标志OF分别是（ DAH、0 ）。</p>
+<p>解析： x和y的机器数是用补码表示的，分别是0100 0100、1101 1100，因为是做x/2+2y，所以，先对x算术右移一位，得0010 0010；再对y算术左移一位，得1011 1000，两者相加，此时sub=0，即0010 0010 + 1011 1000+0 = 1101 1010（DAH），<strong>因为两个加数符号相异，所以不会发生溢出，即OF=0</strong>。</p>
+<h3 id="4单选05分"><a class="header" href="#4单选05分">4单选(0.5分)</a></h3>
+<p>假定变量r1 和r2的机器数用8位补码表示为<code>[r1]补=F5H，[r2]补=EEH</code>。若将运算结果存放在一个8位寄存器中，则下列运算中会发生溢出的是（B ）。</p>
+<p>A. r1/r2</p>
+<p>B. r1× r2</p>
+<p>C. r1+ r2</p>
+<p>D. r1– r2</p>
+<p>正确答案：B你选对了</p>
+<p>C. r1（-11）+ r2（-18）结果为1 1110 0011（-29）</p>
+<h3 id="5单选05分"><a class="header" href="#5单选05分">5单选(0.5分)</a></h3>
+<p>假定整数加法指令、整数减法指令和移位指令所需时钟周期（CPI）都为1，整数乘法指令所需时钟周期为10。若x为整型变量，为了使计算64*x所用时钟周期数最少，编译器应选用的最佳指令序列为（1条左移指令 ）。</p>
+<p>解析： 因为64*x可以用x左移6位来实现，左移指令比乘法指令快10倍，因此最佳指令序列为1条左移指令，只要一个时钟周期。</p>
+<h3 id="6单选05分"><a class="header" href="#6单选05分">6单选(0.5分)</a></h3>
+<p>假定整数加法指令、整数减法指令和移位指令所需时钟周期（CPI）都为1，整数乘法指令所需时钟周期为10。若x为整型变量，为了使计算54*x所用时钟周期数最少，编译器应选用的最佳指令序列为（3条左移指令和两条减法指令 ）。</p>
+<p>解析：一条整数乘法指令需要10个时钟周期。 而<code>54*x=(64-8-2)*x=64*x -8*x -2*x</code>，可用3条左移指令和两条减法指令来实现，共需5个时钟周期。</p>
+<h3 id="7单选05分"><a class="header" href="#7单选05分">7单选(0.5分)</a></h3>
+<p>假定整数加法指令、逻辑运算指令和移位指令所需时钟周期（CPI）都为1，整数除法指令所需时钟周期为32。若x为整型变量，为了使计算x/64所用时钟周期数最少，编译器应选用的最佳指令序列为（两条右移指令、1条与操作指令、1条加法指令 ）。</p>
+<p>A. 1条右移指令</p>
+<p>B. 两条右移指令、1条与操作指令、1条加法指令</p>
+<p>C. 1条加法指令、1条右移指令</p>
+<p>D. 1条除法指令</p>
+<p>正确答案：B你选对了</p>
+<p>解析： A、若x为负数且不能被64整除，则x右移6位和x/64的结果不相等。 B、x/64 = ( x&gt;=0 ? x : (x+63) ) &gt;&gt; 6，因此关键是计算偏移量b，这里，x为正时b=0，x为负时b=63。可从x的符号得到b，x&gt;&gt;31得到32位符号，正数为32位0，负数为32位1，然后通过“与”操作提取低6位，这就是偏移量b。也即：x/64 = ( x+ ( x&gt;&gt;31)&amp;0x3F ) ) &gt;&gt; 6，用2条右移、1条加和1条与指令即可实现，只要4个时钟周期。 C、若x为负数，则x/64=(x+63)&gt;&gt;6，但该公式不适合正数x，因此无法用一条加和一条右移指令实现。 D、一条整数乘法指令需要32个时钟周期。</p>
+<h3 id="8单选05分"><a class="header" href="#8单选05分">8单选(0.5分)</a></h3>
+<p>已知float型变量用IEEE 754单精度浮点格式表示，float型变量x和y的机器数分别表示为x=40E8 0000H，y=C204 0000H，则在计算x+y时，第一步对阶操作的结果<code>[Ex-Ey]补</code>为（1111 1101 ）。</p>
+<p>解析： 因为x=40E8 0000H=0100 0000 1110 1000 0...0，y=C204 0000H=1100 0010 0000 0100 0...0，所以x和y的阶码分别为100 0000 1、100 0010 0，对阶时计算过程为 1000 0001 + 0111 1100 = 1111 1101。</p>
+<h3 id="9单选05分"><a class="header" href="#9单选05分">9单选(0.5分)</a></h3>
+<p>对于IEEE 754单精度浮点数加减运算，只要对阶时得到的两个阶之差的绝对值|ΔE|大于等于（25 ），就无需继续进行后续处理，此时，运算结果直接取阶大的那个数。</p>
+<p>解析： 对于IEEE 754单精度浮点格式，当出现“1.bb…b + 0.00…0 01bb…b”情况时会发生“大数吃小数”现象，小数0.00…0 01bb…b中的小数点被左移了25位。</p>
+<h3 id="10多选05分"><a class="header" href="#10多选05分">10多选(0.5分)</a></h3>
+<p>变量dx、dy和dz的声明和初始化如下：</p>
+<pre><code class="language-c">double dx = (double) x;
+double dy = (double) y;
+double dz = (double) z;
+</code></pre>
+<p>若float和double分别采用IEEE 754单精度和双精度浮点数格式，sizeof(int)=4，则对于任意int型变量x、y和z，以下哪个关系表达式是永真的？</p>
+<p>A. dx*dy*dz == dz*dy*dx</p>
+<p>B. (double)(float) x == dx</p>
+<p>C. (dx+dy)+dz == dx+(dy+dz)</p>
+<p>D. dx*dx &gt;= 0</p>
+<p>正确答案：C、D你错选为B、D</p>
+<p>解析： A、非永真。相乘的结果可能产生舍入。 B、非永真。当int型数据x的有效位数比float型可表示的最大有效位数24更多时，x强制转换为float型数据时有效位数丢失，而将x转换为double型数据时没有有效位数丢失。也即等式左边可能是近似值，而右边是精确值。 C、永真。因为dx、dy和dz是由32位int型数据转换得到的，而double类型可以精确表示int类型数据，并且对阶时尾数移位位数不会超过52位，因此尾数不会舍入，因而不会发生大数吃小数的情况。但是，如果dx、dy和dz是任意double类型数据，则非永真。 D、永真。double型数据用IEEE 754标准表示，尾数用原码小数表示，符号和数值部分分开运算。不管结果是否溢出都不会影响乘积的符号。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第五周ia-32指令系统概述"><a class="header" href="#第五周ia-32指令系统概述">第五周IA-32指令系统概述</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第六周ia-32指令类型"><a class="header" href="#第六周ia-32指令类型">第六周IA-32指令类型</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第七周c语言语句的机器级表示"><a class="header" href="#第七周c语言语句的机器级表示">第七周C语言语句的机器级表示</a></h1>
