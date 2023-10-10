@@ -172,6 +172,305 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="第五周ia-32指令系统概述"><a class="header" href="#第五周ia-32指令系统概述">第五周IA-32指令系统概述</a></h1>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/cs/course1-week5.pdf" target="_blank">在线阅读第五周IA-32指令系统概述PDF文档</a></p>
+<ul>
+<li><a href="#%E7%AC%AC1%E8%AE%B2-%E7%A8%8B%E5%BA%8F%E8%BD%AC%E6%8D%A2%E6%A6%82%E8%BF%B0">第1讲 程序转换概述</a>
+<ul>
+<li><a href="#1-%E7%A8%8B%E5%BA%8F%E5%92%8C%E6%8C%87%E4%BB%A4%E7%9A%84%E5%85%B3%E7%B3%BB15%E5%88%86%E9%92%9F">1. 程序和指令的关系（15分钟）</a></li>
+<li><a href="#2-%E7%9B%AE%E6%A0%87%E4%BB%A3%E7%A0%81%E5%92%8Cisa15%E5%88%86%E9%92%9F">2. 目标代码和ISA（15分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC2%E8%AE%B2-ia-32%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0">第2讲 IA-32指令系统概述</a>
+<ul>
+<li><a href="#1-intel%E5%A4%84%E7%90%86%E5%99%A8%E6%A6%82%E8%BF%B06%E5%88%86%E9%92%9F">1. Intel处理器概述（6分钟）</a></li>
+<li><a href="#2-ia-32%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%84%E7%BB%877%E5%88%86%E9%92%9F">2. IA-32的寄存器组织（7分钟）</a></li>
+<li><a href="#3-ia-32%E7%9A%84%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F8%E5%88%86%E9%92%9F">3. IA-32的寻址方式（8分钟）</a></li>
+<li><a href="#4-%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%AF%BB%E5%9D%80%E4%B8%BE%E4%BE%8B9%E5%88%86%E9%92%9F">4. 高级语言程序中寻址举例（9分钟）</a></li>
+<li><a href="#5-ia-32%E6%9C%BA%E5%99%A8%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F10%E5%88%86%E9%92%9F">5. IA-32机器指令格式（10分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E5%91%A8%E5%B0%8F%E6%B5%8B%E9%AA%8C">第五周小测验</a>
+<ul>
+<li><a href="#1%E5%8D%95%E9%80%8905%E5%88%86">1单选(0.5分)</a></li>
+<li><a href="#2%E5%8D%95%E9%80%8905%E5%88%86">2单选(0.5分)</a></li>
+<li><a href="#3%E5%8D%95%E9%80%8905%E5%88%86">3单选(0.5分)</a></li>
+<li><a href="#4%E5%8D%95%E9%80%8905%E5%88%86">4单选(0.5分)</a></li>
+<li><a href="#5%E5%8D%95%E9%80%8905%E5%88%86">5单选(0.5分)</a></li>
+<li><a href="#6%E5%8D%95%E9%80%8905%E5%88%86">6单选(0.5分)</a></li>
+<li><a href="#7%E5%8D%95%E9%80%8905%E5%88%86">7单选(0.5分)</a></li>
+<li><a href="#8%E5%8D%95%E9%80%8905%E5%88%86">8单选(0.5分)</a></li>
+<li><a href="#9%E5%8D%95%E9%80%8905%E5%88%86%E9%87%8D%E7%82%B9">9单选(0.5分)（重点）</a></li>
+<li><a href="#10%E5%8D%95%E9%80%8905%E5%88%86%E9%87%8D%E7%82%B9">10单选(0.5分)（重点）</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="第1讲-程序转换概述"><a class="header" href="#第1讲-程序转换概述">第1讲 程序转换概述</a></h2>
+<h3 id="1-程序和指令的关系15分钟"><a class="header" href="#1-程序和指令的关系15分钟">1. 程序和指令的关系（15分钟）</a></h3>
+<p>指令中包含的信息可能包括（ABC   ）。</p>
+<p>A.操作码，用于指出指令的操作性质</p>
+<p>B.立即数，即操作数本身</p>
+<p>C.寄存器编号，用于指出操作数所在的寄存器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310090919262.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310090927759.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310090928743.png" alt="" /></p>
+<h3 id="2-目标代码和isa15分钟"><a class="header" href="#2-目标代码和isa15分钟">2. 目标代码和ISA（15分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091009643.png" alt="" /></p>
+<p>test.c写成下面这样：</p>
+<pre><code class="language-c">int add(int i,int j)
+{
+        int x = i + j;
+        return x;
+}
+</code></pre>
+<p>main.c写成下面这样：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &quot;test.c&quot;
+int main()
+{
+        int x = 6, y = 8;
+        int sum = add(x,y);
+        printf(&quot;%d&quot;,sum);
+        return 0;
+}
+</code></pre>
+<p>执行<code>gcc -O1 main.c test.c -o test</code>出现如下的warning</p>
+<pre><code class="language-text">main.c: In function ‘main’:
+main.c:5:19: warning: implicit declaration of function ‘add’ [-Wimplicit-function-declaration]
+    5 |         int sum = add(x,y);
+</code></pre>
+<p>一般常见错误原因是先调用了主函数，然后在主函数里调用被定义在主函数之后的函数。解决办法就是调整函数顺序或增加函数声明。</p>
+<p>经测试<code>gcc -O1 main.c test.c -o test</code>和<code>gcc -O1 test.c main.c -o test</code>都会报这个warning。</p>
+<p>这里出现这个warning的原因是在需要调用该函数的文件中没有声明该函数或声明格式错误。</p>
+<p>main.c修改后如下：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+extern int add(int,int);
+int main()
+{
+        int x = 6, y = 8;
+        int sum = add(x,y);
+        printf(&quot;%d&quot;,sum);
+        return 0;
+}
+</code></pre>
+<p>再执行<code>gcc -O1 main.c test.c -o test</code>和<code>./test</code>就能出现14这个正确结果了！！</p>
+<p>也可以在相应的.h文件中声明函数（这时不要再加extern了。）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091042718.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091043993.png" alt="" /></p>
+<p>以下是关于用objdump对可重定位目标文件和可执行目标文件反汇编得到结果的叙述，其中<strong>错误</strong>的是（ C ）。</p>
+<p>A.两者都包含所有的机器指令，用十六进制表示</p>
+<p>B.两者都包含机器指令对应的汇编指令，而且汇编指令的形式完全相同</p>
+<p>C.可重定位目标文件的反汇编结果中，每条指令的地址是相对于所在函数第一条指令的位移地址</p>
+<p>D.可执行目标文件的反汇编结果中，每条指令的地址是一个绝对地址</p>
+<p>下面是在WSL2(Ubuntu22.04)上的编译test.c的过程和结果。</p>
+<pre><code class="language-bash">gcc -E test.c -o test.i
+gcc -S test.i -o test.s
+</code></pre>
+<p>然后执行<code> cat test.s</code></p>
+<pre><code class="language-bash">        .file   &quot;test.c&quot;
+        .text
+        .globl  add
+        .type   add, @function
+add:
+.LFB0:
+        .cfi_startproc
+        endbr64
+        pushq   %rbp
+        .cfi_def_cfa_offset 16
+        .cfi_offset 6, -16
+        movq    %rsp, %rbp
+        .cfi_def_cfa_register 6
+        movl    %edi, -20(%rbp)
+        movl    %esi, -24(%rbp)
+        movl    -20(%rbp), %edx
+        movl    -24(%rbp), %eax
+        addl    %edx, %eax
+        movl    %eax, -4(%rbp)
+        movl    -4(%rbp), %eax
+        popq    %rbp
+        .cfi_def_cfa 7, 8
+        ret
+        .cfi_endproc
+.LFE0:
+        .size   add, .-add
+        .ident  &quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+        .section        .note.GNU-stack,&quot;&quot;,@progbits
+        .section        .note.gnu.property,&quot;a&quot;
+        .align 8
+        .long   1f - 0f
+        .long   4f - 1f
+        .long   5
+0:
+        .string &quot;GNU&quot;
+1:
+        .align 8
+        .long   0xc0000002
+        .long   3f - 2f
+2:
+        .long   0x3
+3:
+        .align 8
+4:
+</code></pre>
+<p>再执行<code>gcc -c test.s -o test.o</code>和<code>objdump -d test.o</code>出现下面的结果：</p>
+<pre><code class="language-bash">test.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 &lt;add&gt;:
+   0:   f3 0f 1e fa             endbr64
+   4:   55                      push   %rbp
+   5:   48 89 e5                mov    %rsp,%rbp
+   8:   89 7d ec                mov    %edi,-0x14(%rbp)
+   b:   89 75 e8                mov    %esi,-0x18(%rbp)
+   e:   8b 55 ec                mov    -0x14(%rbp),%edx
+  11:   8b 45 e8                mov    -0x18(%rbp),%eax
+  14:   01 d0                   add    %edx,%eax
+  16:   89 45 fc                mov    %eax,-0x4(%rbp)
+  19:   8b 45 fc                mov    -0x4(%rbp),%eax
+  1c:   5d                      pop    %rbp
+  1d:   c3                      ret
+</code></pre>
+<p>x86架构汇编指令一般有两种格式：Intel汇编格式和AT&amp;T汇编格式，DOS、Windows使用Intel汇编格式，而Unix、Linux、Mac OS使用AT&amp;T汇编格式。</p>
+<p>下面简单列出几个Intel和AT&amp;T汇编格式的区别：</p>
+<ol>
+<li>第一当然是两个操作数的顺序啦：Intel的第一个操作数是目标操作数，第二个操作数是源操作数；AT&amp;T的第一个操作数是源操作数，第二个操作数是目标操作数。</li>
+<li>寄存器的表示：Intel的寄存器直接写寄存器的名字就行（eax）；AT&amp;T的寄存器需要在前面加一个百分号%修饰（%eax）。</li>
+<li>立即数表示：Intel的立即数前不用加任何标志（1）；AT&amp;T的立即数前需要加<code>$</code>符号修饰（$1）。</li>
+<li>括号的使用：Intel中寻址时用的括号是中括号<code>[]</code>；AT&amp;T中使用的是小括号<code>()</code>。</li>
+<li>......</li>
+</ol>
+<p><a href="https://zhuanlan.zhihu.com/p/366774541">来源-objdump反汇编对于小白的一个&quot;坑&quot;</a></p>
+<p>objdump默认的汇编格式是AT&amp;T格式。可以通过<code>-M</code>参数来修改反汇编的格式（具体可以参考<code>man objdump</code>）。</p>
+<p>执行<code>objdump -d test.o -M intel |less</code>出现下面的结果：</p>
+<pre><code class="language-bash">
+test.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 &lt;add&gt;:
+   0:   f3 0f 1e fa             endbr64
+   4:   55                      push   rbp
+   5:   48 89 e5                mov    rbp,rsp
+   8:   89 7d ec                mov    DWORD PTR [rbp-0x14],edi
+   b:   89 75 e8                mov    DWORD PTR [rbp-0x18],esi
+   e:   8b 55 ec                mov    edx,DWORD PTR [rbp-0x14]
+  11:   8b 45 e8                mov    eax,DWORD PTR [rbp-0x18]
+  14:   01 d0                   add    eax,edx
+  16:   89 45 fc                mov    DWORD PTR [rbp-0x4],eax
+  19:   8b 45 fc                mov    eax,DWORD PTR [rbp-0x4]
+  1c:   5d                      pop    rbp
+  1d:   c3                      ret
+(END)
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091044645.png" alt="" /></p>
+<p><strong>ISA是计算机组成的抽象</strong></p>
+<p>不同ISA规定的指令集不同，如IA-32、MIPS、ARM等</p>
+<p>计算机组成必须能够实现ISA规定的功能，如提供GPR、标志、运算电路等</p>
+<p>同一种ISA可以有不同的计算机组成，如乘法指令可用ALU或乘法器实现</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091049696.png" alt="" /></p>
+<h2 id="第2讲-ia-32指令系统概述"><a class="header" href="#第2讲-ia-32指令系统概述">第2讲 IA-32指令系统概述</a></h2>
+<h3 id="1-intel处理器概述6分钟"><a class="header" href="#1-intel处理器概述6分钟">1. Intel处理器概述（6分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091103060.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091106167.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310091107190.png" alt="" /></p>
+<h3 id="2-ia-32的寄存器组织7分钟"><a class="header" href="#2-ia-32的寄存器组织7分钟">2. IA-32的寄存器组织（7分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100853350.png" alt="" /></p>
+<p>IA-32支持的数据类型及格式如上所示。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100856198.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100857562.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100859845.png" alt="" /></p>
+<p>ZF 零标志</p>
+<p>SF 符号标志</p>
+<p>OF 溢出标志</p>
+<p>CF 进/借位标志</p>
+<h3 id="3-ia-32的寻址方式8分钟"><a class="header" href="#3-ia-32的寻址方式8分钟">3. IA-32的寻址方式（8分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100911986.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100914699.png" alt="" /></p>
+<h3 id="4-高级语言程序中寻址举例9分钟"><a class="header" href="#4-高级语言程序中寻址举例9分钟">4. 高级语言程序中寻址举例（9分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100925264.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100927750.png" alt="" /></p>
+<p>指令集体系结构设计时需要考虑各种寻址方式，这些寻址方式要能够支持高级语言程序的各种数据结构中数据的访问。其中，变址寻址通常用于数组元素的访问。</p>
+<h3 id="5-ia-32机器指令格式10分钟"><a class="header" href="#5-ia-32机器指令格式10分钟">5. IA-32机器指令格式（10分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100934477.png" alt="" /></p>
+<p>IA-32是变长指令字处理器，其中包含操作码、寻址方式、SIB、位移和立即数等字段。SIB字段用于确定操作数的存储地址，其中SS表示比例因子，占两位（00--1B;01--2B;10--4B;11--8B）,Index表示3位变址寄存器编号，Base表示3位基址寄存器编号。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310100937976.png" alt="" /></p>
+<h2 id="第五周小测验"><a class="header" href="#第五周小测验">第五周小测验</a></h2>
+<h3 id="1单选05分"><a class="header" href="#1单选05分">1单选(0.5分)</a></h3>
+<p>以下有关指令的叙述中，错误的是（C ）。</p>
+<p>A. 伪指令是由若干条机器指令构成的一个指令序列，属于软件范畴</p>
+<p>B. 机器指令是用二进制表示的一个0/1序列，CPU能直接执行</p>
+<p>C. 汇编指令是机器指令的符号表示，CPU能直接执行</p>
+<p>D. 微指令是一条机器指令所包含的控制信号的组合，CPU能直接执行</p>
+<h3 id="2单选05分"><a class="header" href="#2单选05分">2单选(0.5分)</a></h3>
+<p>一条机器指令通常由多个字段构成。以下选项中，通常（D ）不显式地包含在机器指令中。</p>
+<p>A. 寄存器编号</p>
+<p>B. 操作码</p>
+<p>C. 寻址方式</p>
+<p>D. 下条指令地址</p>
+<h3 id="3单选05分"><a class="header" href="#3单选05分">3单选(0.5分)</a></h3>
+<p>对于运算类指令或传送类指令，需要在指令中指出操作数或操作数所在的位置。通常，指令中指出的操作数不可能出现在（A ）中。</p>
+<p>A. 程序计数器</p>
+<p>B. 通用寄存器</p>
+<p>C. 存储单元</p>
+<p>D. 指令</p>
+<h3 id="4单选05分"><a class="header" href="#4单选05分">4单选(0.5分)</a></h3>
+<p>令集体系结构（ISA）是计算机系统中必不可少的一个抽象层，它是对硬件的抽象，软件通过它所规定的指令系统规范来使用硬件。以下有关ISA的叙述中，错误的是（D ）。</p>
+<p>A. ISA规定了指令的操作数类型、寄存器结构、存储空间大小、编址方式和大端/小端方式</p>
+<p>B. ISA规定了指令获取操作数的方式，即寻址方式</p>
+<p>C. ISA规定了所有指令的集合，包括指令格式和操作类型</p>
+<p>D. ISA规定了执行每条指令时所包含的控制信号</p>
+<h3 id="5单选05分"><a class="header" href="#5单选05分">5单选(0.5分)</a></h3>
+<p>以下选项中，不属于指令集体系结构名称的是（B ）。</p>
+<p>A. MIPS</p>
+<p>B. UNIX</p>
+<p>C. IA-32</p>
+<p>D. ARM</p>
+<h3 id="6单选05分"><a class="header" href="#6单选05分">6单选(0.5分)</a></h3>
+<p>以下Intel微处理器中，不兼容IA-32指令集体系结构的是（C ）。</p>
+<p>A. Pentium (II、III、4)</p>
+<p>B. Core(i3、i5、i7)</p>
+<p>C. Itanium和Itanium 2</p>
+<p>D. 80386和80486</p>
+<h3 id="7单选05分"><a class="header" href="#7单选05分">7单选(0.5分)</a></h3>
+<p>以下关于IA-32指令格式的叙述中，错误的是（B ）。</p>
+<p>A. 采用变长指令字格式，指令长度从一个字节到十几个字节不等</p>
+<p>B. 指令中给出的操作数所在的通用寄存器的宽度总是32位</p>
+<p>C. 采用变长操作码，操作码位数可能是5位到十几位不等</p>
+<p>D. 指令中指出的位移量和立即数的长度可以是0、1、2或4个字节</p>
+<h3 id="8单选05分"><a class="header" href="#8单选05分">8单选(0.5分)</a></h3>
+<p>以下关于IA-32指令寻址方式的叙述中，错误的是（ D）。</p>
+<p>A. 存储器操作数中最复杂的寻址方式是“基址加比例变址加位移”</p>
+<p>B. 操作数可以是指令中的立即数、也可以是通用寄存器或存储单元中的内容</p>
+<p>C. 对于寄存器操作数，必须在指令中给出通用寄存器的3位编号</p>
+<p>D. 相对寻址的目标地址为“PC内容加位移”，PC内容指当前正在执行指令的地址</p>
+<h3 id="9单选05分重点"><a class="header" href="#9单选05分重点">9单选(0.5分)（重点）</a></h3>
+<p>以下关于IA-32中整数运算指令所支持的操作数的叙述中，错误的是（B ）。</p>
+<p>A. 参加运算的操作数可以是一个字节（8b）、一个字（16b）或双字（32b）</p>
+<p>B. 除乘法指令外，其他运算指令的源操作数和目的操作数的位数相等</p>
+<p>C.对于乘除运算指令，操作数一定区分是无符号整数还是带符号整数</p>
+<p>D.对于加减运算指令，操作数不区分是无符号整数还是带符号整数</p>
+<p>除法运算</p>
+<h3 id="10单选05分重点"><a class="header" href="#10单选05分重点">10单选(0.5分)（重点）</a></h3>
+<p>以下关于IA-32的定点寄存器组织的叙述中，错误的是（C）。</p>
+<p>A. 寄存器ESP/SP称为栈指针寄存器，EBP/BP称为基址指针寄存器</p>
+<p>B. <strong>EIP/IP为指令指针寄存器，即PC</strong>；EFLAGS/FLAGS为标志寄存器</p>
+<p>C. 每个通用寄存器都可作为32位、16位或8位寄存器使用</p>
+<p>D. 寄存器EAX/AX/AL称为累加器，ECX/CX/CL称为计数寄存器</p>
+<p>32位处理器中：EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI这8个寄存器通常存放一般性的数据，被称为通用寄存器。它们都有各自的用途。</p>
+<p>EAX、ECX、EDX、EBX为数据寄存器；ESP、EBP为指针寄存器；ESI、EDI变址寄存器。</p>
+<p>以EAX为例，寄存器的逻辑结构图如图2-3-1所示。</p>
+<p><img src="https://picx.zhimg.com/80/v2-ceccc253bba4a1983a25fb7e0dfa7ca2_1440w.webp?source=1940ef5c" alt="" /></p>
+<p>EAX寄存器它本身是一个32位寄存器，那么它可以存储一个32位的数据。EAX寄存器是在32位处理器中工作的，它的上一代处理器是16位处理器，而16位处理器的上一代是8位处理器，为了保证兼容，使之前的处理器经过程序的修改可以在32位处理器上运行。使得EAX寄存器包含了16位、8位的寄存器。</p>
+<p>EAX寄存器可分为一个可独立使用的16位寄存器：AX(16位)；16位寄存器还可以分为两个可以独立使用的8位寄存器： AH(8位~15位为高8位)、AL(0位~7位为低8位)。</p>
+<p>而ESP、EBP、ESI、EDI这四个寄存器是分成了两段。</p>
+<p>以ESP为例，寄存器的逻辑结构图如图2-3-2所示。</p>
+<p><img src="https://picx.zhimg.com/80/v2-755577f831789a9c9d4d2ac56dca1f8f_1440w.webp?source=1940ef5c" alt="" /></p>
+<p>举例介绍了个别的寄存器逻辑结构，接下来我们来画出32位、16位、8位的通用寄存器逻辑结构图</p>
+<p>通用寄存器逻辑结构必须记住，对以后学习有帮助</p>
+<p><img src="https://picx.zhimg.com/80/v2-30f76a1f13032b65427693000f7dfc31_1440w.webp?source=1940ef5c" alt="" /></p>
+<p>从这里可以看出，不是每个通用寄存器都可以作为8位寄存器使用</p>
 
                     </main>
 
