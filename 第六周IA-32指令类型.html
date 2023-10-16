@@ -172,6 +172,348 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="第六周ia-32指令类型"><a class="header" href="#第六周ia-32指令类型">第六周IA-32指令类型</a></h1>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/cs/course1-week6.pdf" target="_blank">在线阅读PDF文档</a></p>
+<ul>
+<li><a href="#%E7%AC%AC1%E8%AE%B2-%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4">第1讲 传送指令</a>
+<ul>
+<li><a href="#1%E5%B8%B8%E7%94%A8%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A415%E5%88%86%E9%92%9F">1.常用传送指令（15分钟）</a></li>
+<li><a href="#2%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B5%E5%88%86%E9%92%9F">2.传送指令执行过程（5分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC2%E8%AE%B2-%E5%AE%9A%E7%82%B9%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">第2讲 定点算术运算指令</a>
+<ul>
+<li><a href="#1%E5%B8%B8%E7%94%A8%E5%AE%9A%E7%82%B9%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A49%E5%88%86%E9%92%9F">1.常用定点运算指令（9分钟）</a></li>
+<li><a href="#2%E5%8A%A0%E6%B3%95%E8%BF%90%E7%AE%97%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E4%B8%BE%E4%BE%8B15%E5%88%86%E9%92%9F">2.加法运算的底层实现举例（15分钟）</a></li>
+<li><a href="#3%E5%8A%A0%E6%B3%95%E6%8C%87%E4%BB%A4%E5%92%8C%E4%B9%98%E6%B3%95%E6%8C%87%E4%BB%A4%E4%B8%BE%E4%BE%8B18%E5%88%86%E9%92%9F">3.加法指令和乘法指令举例（18分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC3%E8%AE%B2-%E6%8C%89%E4%BD%8D%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">第3讲 按位运算指令</a>
+<ul>
+<li><a href="#1%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E5%92%8C%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A412%E5%88%86%E9%92%9F">1.逻辑运算和移位指令（12分钟）</a></li>
+<li><a href="#2%E6%8C%89%E4%BD%8D%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4%E4%B8%BE%E4%BE%8B10%E5%88%86%E9%92%9F">2.按位运算指令举例（10分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC4%E8%AE%B2-%E6%8E%A7%E5%88%B6%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4">第4讲 控制转移指令</a>
+<ul>
+<li><a href="#1%E6%9D%A1%E4%BB%B6%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4%E4%B8%BE%E4%BE%8B22%E5%88%86%E9%92%9F">1.条件转移指令举例（22分钟）</a></li>
+<li><a href="#2%E6%9D%A1%E4%BB%B6%E8%AE%BE%E7%BD%AE%E6%8C%87%E4%BB%A4%E4%B8%BE%E4%BE%8B5%E5%88%86%E9%92%9F">2.条件设置指令举例（5分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC5%E8%AE%B2-x87%E6%B5%AE%E7%82%B9%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4">第5讲 x87浮点处理指令</a>
+<ul>
+<li><a href="#1-x87-fpu%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A411%E5%88%86%E9%92%9F">1. x87 FPU常用指令（11分钟）</a></li>
+<li><a href="#2-x87%E6%B5%AE%E7%82%B9%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E4%B8%BE%E4%BE%8B15%E5%88%86%E9%92%9F">2. x87浮点处理指令举例（15分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC6%E8%AE%B2-mmx%E5%8F%8Asse%E6%8C%87%E4%BB%A4%E9%9B%86">第6讲 MMX及SSE指令集</a>
+<ul>
+<li><a href="#mmx%E5%8F%8Asse%E6%8C%87%E4%BB%A4%E9%9B%8614%E5%88%86%E9%92%9F">MMX及SSE指令集（14分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AD%E5%91%A8%E5%B0%8F%E6%B5%8B%E9%AA%8C">第六周小测验</a>
+<ul>
+<li><a href="#1%E5%8D%95%E9%80%89%E7%9B%B8%E5%AF%B9%E5%9F%BA%E5%9D%80%E6%AF%94%E4%BE%8B%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F">1单选(相对基址比例变址寻址方式)</a></li>
+<li><a href="#2%E5%8D%95%E9%80%89popl%E6%8C%87%E4%BB%A4">2单选(popl指令)</a></li>
+<li><a href="#3%E5%8D%95%E9%80%89movl%E6%8C%87%E4%BB%A4">3单选(movl指令)</a></li>
+<li><a href="#4%E5%8D%95%E9%80%89movswl%E6%8C%87%E4%BB%A4">4单选(movswl指令)</a></li>
+<li><a href="#5%E5%8D%95%E9%80%89subw%E6%8C%87%E4%BB%A4">5单选(subw指令)</a></li>
+<li><a href="#6%E5%8D%95%E9%80%89imulw%E6%8C%87%E4%BB%A4">6单选(imulw指令)</a></li>
+<li><a href="#7%E5%8D%95%E9%80%89salw%E6%8C%87%E4%BB%A4">7单选(salw指令)</a></li>
+<li><a href="#8%E5%8D%95%E9%80%89cmpl%E6%AF%94%E8%BE%83%E6%8C%87%E4%BB%A4%E5%92%8Cjle%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4%E9%9A%BE%E7%82%B9">8单选(cmpl比较指令和jle转移指令)（难点）</a></li>
+<li><a href="#9%E5%8D%95%E9%80%89x87-fpu%E6%B5%AE%E7%82%B9%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F">9单选(x87 FPU浮点处理指令系统)</a></li>
+<li><a href="#10%E5%8D%95%E9%80%89mmxsse%E6%8C%87%E4%BB%A4%E9%9B%86">10单选(MMX/SSE指令集)</a></li>
+</ul>
+</li>
+</ul>
+<p>指令内容比较繁琐，不需要记忆，只要求能看懂手册会用即可。下面使用的是AT&amp;T指令集，不是Intel80x86指令集。两者差异明显，比如mov指令是否加l,w等以及源操作数和目的操作数的位置不同。</p>
+<h2 id="第1讲-传送指令"><a class="header" href="#第1讲-传送指令">第1讲 传送指令</a></h2>
+<h3 id="1常用传送指令15分钟"><a class="header" href="#1常用传送指令15分钟">1.常用传送指令（15分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131040175.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131106575.png" alt="" /></p>
+<h3 id="2传送指令执行过程5分钟"><a class="header" href="#2传送指令执行过程5分钟">2.传送指令执行过程（5分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140941832.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140938709.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140939561.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140940360.png" alt="" /></p>
+<blockquote>
+<p>还有一个问题就是因为虽说经常听到 PC 这个词，但是我却没有见到其实体，所以我的理解是 PC 实际上就是 CS:IP 组合的逻辑表示。PC 不是一个实体，真正用来表示 PC 值的是 CS:IP，所谓的 PC 自动增加是指令指针寄存器 IP 在自增？这个理解对吗？</p>
+</blockquote>
+<p>在 x86 体系里是这样。x86 系统中自增的是 IP，用 CS:IP 组合表示正在执行的指令地址，此时 PC 只是一个概念上的说法。在 ARM 体系中 R15 就是 PC，当然 ARM 和 IA-32、x64 都支持高级内存管理，所以「PC」的内容未必是当前指令在内存中的绝对位置。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140940156.png" alt="" /></p>
+<h2 id="第2讲-定点算术运算指令"><a class="header" href="#第2讲-定点算术运算指令">第2讲 定点算术运算指令</a></h2>
+<h3 id="1常用定点运算指令9分钟"><a class="header" href="#1常用定点运算指令9分钟">1.常用定点运算指令（9分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140944951.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140949381.png" alt="" /></p>
+<p>定点算术运算指令汇总</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140951051.png" alt="" /></p>
+<h3 id="2加法运算的底层实现举例15分钟"><a class="header" href="#2加法运算的底层实现举例15分钟">2.加法运算的底层实现举例（15分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140957788.png" alt="" /></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+using namespace std;
+
+int add(int i,int j)
+{
+    int x = i + j;
+    return x;
+}
+
+int main()
+{
+    int t1 = 2147483647;
+    int t2 = 2;
+    int sum = add(t1,t2);
+    printf(&quot;sum=%d&quot;,sum);
+}
+</code></pre>
+<pre><code>sum=-2147483647
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141001368.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141003853.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141005498.png" alt="" /></p>
+<p>ALU结构原理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141010370.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141010632.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141012904.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141014746.png" alt="" /></p>
+<h3 id="3加法指令和乘法指令举例18分钟"><a class="header" href="#3加法指令和乘法指令举例18分钟">3.加法指令和乘法指令举例（18分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310140949381.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141031670.png" alt="" /></p>
+<p>溢出标志OF：在运算过程中，如果操作数或结果超出了机器能表示的范围称为溢出。此时OF位置1，否则置0。简而言之，<font color="red">如果操作数符号相同，而结果与操作数符号不同，则发生了溢出。</font> 上面是负数加负数还是负数，故没有溢出。</p>
+<p>符号标志SF：计算运算结果的符号，若最高有效位为1则置为1，最高有效位为0则置为0</p>
+<p>零标志ZF：计算结果为0时置为1，否则置为0</p>
+<p>进位标志CF：CF=Cout XOR Sub。例如，执行加法指令时，最高有效位有进位时置1，否则置0。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141123982.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141124519.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141131708.png" alt="" /></p>
+<h2 id="第3讲-按位运算指令"><a class="header" href="#第3讲-按位运算指令">第3讲 按位运算指令</a></h2>
+<h3 id="1逻辑运算和移位指令12分钟"><a class="header" href="#1逻辑运算和移位指令12分钟">1.逻辑运算和移位指令（12分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310150916442.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310150947422.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310150950183.png" alt="" /></p>
+<h3 id="2按位运算指令举例10分钟"><a class="header" href="#2按位运算指令举例10分钟">2.按位运算指令举例（10分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151000231.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151001112.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151003633.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a = 0x80000000;
+    unsigned int b = 0x80000000;
+    printf(&quot;0x%X\n&quot;,a&gt;&gt;1);
+    printf(&quot;0x%X\n&quot;,b&gt;&gt;1);
+    return 0;
+}
+</code></pre>
+<pre><code>0xC0000000
+0x40000000
+</code></pre>
+<h2 id="第4讲-控制转移指令"><a class="header" href="#第4讲-控制转移指令">第4讲 控制转移指令</a></h2>
+<h3 id="1条件转移指令举例22分钟"><a class="header" href="#1条件转移指令举例22分钟">1.条件转移指令举例（22分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151018907.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151023246.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151036218.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int sum(int a[],unsigned len)
+{
+    int i,sum = 0;
+    for(i=0;i&lt;=len-1;i++)
+        sum += a[i];
+    return sum;
+}
+
+int main()
+{
+    int a[4]={1,2,3,4};
+    unsigned int len = 0;
+    printf(&quot;%d\n&quot;,sum(a,len));
+    return 0;
+}
+</code></pre>
+<pre><code>
+Process returned -1073741819 (0xC0000005)   execution time : 0.532 s
+Press any key to continue.
+</code></pre>
+<p>这是个死循环。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151042034.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151043780.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int sum(int a[],int len)
+{
+    int i,sum = 0;
+    for(i=0;i&lt;=len-1;i++)
+        sum += a[i];
+    return sum;
+}
+
+int main()
+{
+    int a[4]={1,2,3,4};
+    int len = 0;
+    printf(&quot;%d\n&quot;,sum(a,len));
+    return 0;
+}
+</code></pre>
+<pre><code>0
+</code></pre>
+<h3 id="2条件设置指令举例5分钟"><a class="header" href="#2条件设置指令举例5分钟">2.条件设置指令举例（5分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151054292.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main()
+{
+    unsigned int a = 1;
+    unsigned short b = 1;
+    char c = -1;
+    int d;
+
+    d = (a &gt; c) ? 1 : 0;
+    printf(&quot;%d\n&quot;,d);
+    d = (a == c) ? 1 : 0;
+    printf(&quot;%d\n&quot;,d);
+    d = (b &gt; c) ? 1 : 0;
+    printf(&quot;%d\n&quot;,d);
+    return 0;
+}
+
+</code></pre>
+<p>a：0000 0000 0000 0000 0000 0000 0000 0001</p>
+<p>b：0000 0000 0000 0001</p>
+<p>c：1111 1111</p>
+<pre><code>0
+0
+1
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151101472.png" alt="" /></p>
+<h2 id="第5讲-x87浮点处理指令"><a class="header" href="#第5讲-x87浮点处理指令">第5讲 x87浮点处理指令</a></h2>
+<h3 id="1-x87-fpu常用指令11分钟"><a class="header" href="#1-x87-fpu常用指令11分钟">1. x87 FPU常用指令（11分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151120378.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151127410.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151130500.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151131376.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151133494.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151133038.png" alt="" /></p>
+<h3 id="2-x87浮点处理指令举例15分钟"><a class="header" href="#2-x87浮点处理指令举例15分钟">2. x87浮点处理指令举例（15分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160824056.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160827472.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160830282.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160833310.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160847471.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160849356.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a = 10;
+    double *p = (double*)&amp;a;
+    printf(&quot;%f\n&quot;,*p);
+    printf(&quot;%f\n&quot;,(double)a);
+    return 0;
+}
+</code></pre>
+<pre><code>0.000000
+10.000000
+</code></pre>
+<p>老师说<code>printf(&quot;%f\n&quot;,*p);</code>实际上会输出个不确定的值。</p>
+<p>输出为%d格式会出现更玄乎的结果。</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a = 10;
+    double *p = (double*)&amp;a;
+    printf(&quot;%d\n&quot;,*p);
+    printf(&quot;%d\n&quot;,(double)a);
+    return 0;
+}
+</code></pre>
+<pre><code>10
+0
+</code></pre>
+<h2 id="第6讲-mmx及sse指令集"><a class="header" href="#第6讲-mmx及sse指令集">第6讲 MMX及SSE指令集</a></h2>
+<h3 id="mmx及sse指令集14分钟"><a class="header" href="#mmx及sse指令集14分钟">MMX及SSE指令集（14分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160856169.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160857030.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160900893.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160902524.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310160903318.png" alt="" /></p>
+<h2 id="第六周小测验"><a class="header" href="#第六周小测验">第六周小测验</a></h2>
+<h3 id="1单选相对基址比例变址寻址方式"><a class="header" href="#1单选相对基址比例变址寻址方式">1单选(相对基址比例变址寻址方式)</a></h3>
+<p>某C语言程序中对数组变量b的声明为“<code>int b[10][5];</code>”，有一条for语句如下：</p>
+<pre><code class="language-c">for (i=0; i&lt;10, i++)
+  for (j=0; j&lt;5; j++)
+        sum+= b[i][j];
+</code></pre>
+<p>假设执行到“<code>sum+= b[i][j];</code>”时，sum的值在EAX中，<code>b[i][0]</code>所在的地址在EDX中，j在ESI中，则“<code>sum+= b[i][j];</code>”所对应的指令（AT&amp;T格式）可以是（   A  ）。</p>
+<p>A.addl 0(%edx, %esi, 4), %eax<br />
+B.addl 0(%esi, %edx, 4), %eax<br />
+C.addl 0(%edx, %esi, 2), %eax<br />
+D.addl 0(%esi, %edx, 2), %eax</p>
+<h3 id="2单选popl指令"><a class="header" href="#2单选popl指令">2单选(popl指令)</a></h3>
+<p>IA-32中指令“popl %ebp”的功能是（ D  ）。</p>
+<p>A.<code>R[esp]←R[esp]+4，R[ebp]←M[R[esp]]</code><br />
+B.<code>R[esp]←R[esp]-4，R[ebp]←M[R[esp]]</code><br />
+C.<code>R[ebp]←M[R[esp]]，R[esp]←R[esp]-4</code><br />
+D.<code>R[ebp]←M[R[esp]]，R[esp]←R[esp]+4</code></p>
+<h3 id="3单选movl指令"><a class="header" href="#3单选movl指令">3单选(movl指令)</a></h3>
+<p>IA-32中指令“<code>movl 8(%edx, %esi, 4), %edx</code>”的功能是（  D ）。</p>
+<p>A.<code>M[R[esi]+R[edx]*4+8]←R[edx]</code><br />
+B.<code>R[edx]←M[R[esi]+R[edx]*4+8]</code><br />
+C.<code>M[R[edx]+R[esi]*4+8]←R[edx]</code><br />
+D.<code>R[edx]←M[R[edx]+R[esi]*4+8]</code></p>
+<h3 id="4单选movswl指令"><a class="header" href="#4单选movswl指令">4单选(movswl指令)</a></h3>
+<p>设<code>SignExt[x]</code>表示对x符号扩展，<code>ZeroExt[x]</code>表示对x零扩展。IA-32中指令“<code>movswl %cx, -20(%ebp)</code>”的功能是（  D  ）。</p>
+<p>A.<code>M[R[ebp]-20]←ZeroExt[R[cx]]</code><br />
+B.<code>R[cx]←ZeroExt [M[R[ebp]-20]]</code><br />
+C.<code>R[cx]←SignExt [M[R[ebp]-20]]</code><br />
+D.<code>M[R[ebp]-20]←SignExt[R[cx]]</code></p>
+<h3 id="5单选subw指令"><a class="header" href="#5单选subw指令">5单选(subw指令)</a></h3>
+<p>假设 <code>R[ax]=FFE8H，R[bx]=7FE6H</code>，执行指令“<code>subw %bx, %ax</code>”后，寄存器的内容和各标志的变化为（  A ）。</p>
+<p>A.<code>R[ax]=8002H</code>，OF=0，SF=1，CF=0，ZF=0<br />
+B.<code>R[bx]=8002H</code>，OF=1，SF=1，CF=0，ZF=0<br />
+C.<code>R[ax]=8002H</code>，OF=1，SF=1，CF=0，ZF=0<br />
+D.<code>R[bx]=8002H</code>，OF=0，SF=1，CF=0，ZF=0</p>
+<p>解析：  A、指令在补码加减运算部件中执行：1111 1111 1110 1000+1000 0000 0001 1001+1 =（1）1000 0000 0000 0010（8002H），结果无溢出（OF=0）、负数（SF=1）、没有借位（CF= (1 异或 1) =0）、非0（ZF=0）。</p>
+<h3 id="6单选imulw指令"><a class="header" href="#6单选imulw指令">6单选(imulw指令)</a></h3>
+<p>假设<code>R[eax]=0000B160H，R[ebx]=00FF0110H</code>，执行指令“<code>imulw %bx</code>”后，通用寄存器的内容变化为（  D  ）。</p>
+<p>A.<code>R[eax]=FFAC7600H</code>，其余不变<br />
+B. <code>R[eax]=00BC7600</code>，其余不变<br />
+C.<code>R[eax]=00007600H，R[dx]=00BCH</code><br />
+D.<code>R[eax]=00007600H，R[dx]=FFACH</code></p>
+<p>解析：  D、因为一个源操作数为BX寄存器中的内容，所以只要将AX和BX中的内容相乘即可。指令在带符号乘法部件中执行，<code>B160H*0110H=FFFB1600+FFB16000=FFAC7600H</code>，DX寄存器内容为FFACH，AX寄存器内容为7600H，EAX中高16位不变。</p>
+<h3 id="7单选salw指令"><a class="header" href="#7单选salw指令">7单选(salw指令)</a></h3>
+<p>假设short型变量x被分配在寄存器AX中，若<code>R[ax]=FF70H</code>，则执行指令“<code>salw $2, %ax</code>”后，变量x的机器数和真值分别是（  C  ）。</p>
+<p>A.3FDC，16348<br />
+B. FFDCH，-36<br />
+C.FDC0H，-576<br />
+D.FDC3H，-573</p>
+<p>解析：  C、salw指令是算术左移指令，对FF70=1111 1111 0111 0000算术左移2位后，结果为1111 1101 1100 0000（FDC0H），真值为-10 0100 0000B = -(512+64) = -576。</p>
+<h3 id="8单选cmpl比较指令和jle转移指令难点"><a class="header" href="#8单选cmpl比较指令和jle转移指令难点">8单选(cmpl比较指令和jle转移指令)（难点）</a></h3>
+<p>程序P中有两个变量i和j，被分别分配在寄存器EAX和EDX中，P中语句“if (i&lt;j) { …}”对应的指令序列如下（左边为指令地址，中间为机器代码，右边为汇编指令）：</p>
+<p>804846a    39 c2       cmpl  %eax, %edx<br />
+804846c    7e 0d    jle     xxxxxxxx</p>
+<p>若执行到804846a处的cmpl指令时，i=105，j=100，则jle指令执行后将会转到（    A  ）处的指令执行。</p>
+<p>A.804847b<br />
+B.8048479<br />
+C.804846e<br />
+D.8048461</p>
+<p>解析：  A、因为cmpl指令中EDX内容为100，EAX内容为105，对这两个数做减法，显然100&lt;105，满足jle指令小于或等于的条件，执行完jle指令后将转移到PC+偏移量=0x84846c+2+0d=0x804847b去执行。</p>
+<h3 id="9单选x87-fpu浮点处理指令系统"><a class="header" href="#9单选x87-fpu浮点处理指令系统">9单选(x87 FPU浮点处理指令系统)</a></h3>
+<p>以下关于x87 FPU浮点处理指令系统的叙述中，错误的是（  A ）。</p>
+<p>A.float和double型数据从主存装入浮点寄存器时有可能发生舍入，造成精度损失<br />
+B.提供8个80位浮点寄存器ST(0)~ST(7)，采用栈结构，栈顶为ST(0)<br />
+C. float、double和long double型数据存入主存时，分别占32位、64位和96位<br />
+D.float、double和long double三种类型数据都按80位格式存放在浮点寄存器中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151127410.png" alt="" /></p>
+<h3 id="10单选mmxsse指令集"><a class="header" href="#10单选mmxsse指令集">10单选(MMX/SSE指令集)</a></h3>
+<p>以下关于MMX/SSE指令集的叙述中，错误的是（ D  ）。</p>
+<p>A. SSE指令是一种采用SIMD（单指令多数据）技术的数据级并行指令<br />
+B. 同一个微处理器同时支持IA-32指令集与MMX/SSE指令集<br />
+C. 目前SSE支持128位整数运算或同时并行处理两个64位双精度浮点数<br />
+D. MMX/SSE指令集和IA-32指令集共用同一套通用寄存器</p>
 
                     </main>
 
