@@ -172,6 +172,644 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="第七周c语言语句的机器级表示"><a class="header" href="#第七周c语言语句的机器级表示">第七周C语言语句的机器级表示</a></h1>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/cs/course1-week7.pdf" target="_blank">在线阅读PDF文档</a></p>
+<ul>
+<li><a href="#%E7%AC%AC1%E8%AE%B2-%E8%BF%87%E7%A8%8B%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA">第1讲 过程（函数）调用的机器级表示</a>
+<ul>
+<li><a href="#1%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E6%A6%82%E8%BF%B013%E5%88%86%E9%92%9F">1.过程调用概述（13分钟）</a></li>
+<li><a href="#2%E8%BF%87%E7%A8%8B%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%8413%E5%88%86%E9%92%9F">2.过程（函数）的机器级代码结构（13分钟）</a></li>
+<li><a href="#3%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%9212%E5%88%86%E9%92%9F">3.过程调用的参数传递（12分钟）</a></li>
+<li><a href="#4%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E4%B8%BE%E4%BE%8B11%E5%88%86%E9%92%9F">4.过程调用举例（11分钟）</a></li>
+<li><a href="#5%E9%80%92%E5%BD%92%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E4%B8%BE%E4%BE%8B11%E5%88%86%E9%92%9F">5.递归过程调用举例（11分钟）</a></li>
+<li><a href="#6%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E4%B8%BE%E4%BE%8B14%E5%88%86%E9%92%9F">6.过程调用举例（14分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC2%E8%AE%B2-%E9%80%89%E6%8B%A9%E5%92%8C%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA">第2讲 选择和循环语句的机器级表示</a>
+<ul>
+<li><a href="#1%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA18%E5%88%86%E9%92%9F">1.选择结构的机器级表示（18分钟）</a></li>
+<li><a href="#2%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA14%E5%88%86%E9%92%9F">2.循环结构的机器级表示（14分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%83%E5%91%A8%E5%B0%8F%E6%B5%8B%E9%AA%8C">第七周小测验</a></li>
+</ul>
+<h2 id="第1讲-过程函数调用的机器级表示"><a class="header" href="#第1讲-过程函数调用的机器级表示">第1讲 过程（函数）调用的机器级表示</a></h2>
+<h3 id="1过程调用概述13分钟"><a class="header" href="#1过程调用概述13分钟">1.过程调用概述（13分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170826472.png" alt="" /></p>
+<p>测试程序：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+int add(int x,int y)
+{
+	return x + y;
+}
+int caller()
+{
+	int t1 = 125;
+	int t2 = 80;
+	int sum = add(t1,t2);
+	return sum;
+}
+int main()
+{
+	int sum = caller();
+	printf(&quot;%d&quot;,sum);
+	return 0;
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170829784.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170835846.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170840774.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170842694.png" alt="" /></p>
+<h3 id="2过程函数的机器级代码结构13分钟"><a class="header" href="#2过程函数的机器级代码结构13分钟">2.过程（函数）的机器级代码结构（13分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170905287.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170906440.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170918185.png" alt="" /></p>
+<h3 id="3过程调用的参数传递12分钟"><a class="header" href="#3过程调用的参数传递12分钟">3.过程调用的参数传递（12分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170924406.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170926560.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170940829.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+void swap(int *x, int *y)
+{
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int main()
+{
+    int a = 15, b = 22;
+    printf(&quot;a=%d\tb=%d\n&quot;,a,b);
+    swap(&amp;a, &amp;b);
+    printf(&quot;a=%d\tb=%d\n&quot;,a,b);
+    return 0;
+}
+</code></pre>
+<pre><code>a=15    b=22
+a=22    b=15
+</code></pre>
+<p>按地址传递程序汇编结果：</p>
+<pre><code class="language-asm">	.file	&quot;main.c&quot;
+	.text
+	.globl	swap
+	.type	swap, @function
+swap:
+.LFB0:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movq	-24(%rbp), %rax
+	movl	(%rax), %eax
+	movl	%eax, -4(%rbp)
+	movq	-32(%rbp), %rax
+	movl	(%rax), %edx
+	movq	-24(%rbp), %rax
+	movl	%edx, (%rax)
+	movq	-32(%rbp), %rax
+	movl	-4(%rbp), %edx
+	movl	%edx, (%rax)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	swap, .-swap
+	.section	.rodata
+.LC0:
+	.string	&quot;a=%d\tb=%d\n&quot;
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movl	$15, -16(%rbp)
+	movl	$22, -12(%rbp)
+	movl	-12(%rbp), %edx
+	movl	-16(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	leaq	-12(%rbp), %rdx
+	leaq	-16(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	swap
+	movl	-12(%rbp), %edx
+	movl	-16(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	$0, %eax
+	movq	-8(%rbp), %rdx
+	subq	%fs:40, %rdx
+	je	.L4
+	call	__stack_chk_fail@PLT
+.L4:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.ident	&quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+	.section	.note.GNU-stack,&quot;&quot;,@progbits
+	.section	.note.gnu.property,&quot;a&quot;
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	&quot;GNU&quot;
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310170947511.png" alt="" /></p>
+<p>测试程序：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+void swap(int x, int y)
+{
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main()
+{
+    int a = 15, b = 22;
+    printf(&quot;a=%d\tb=%d\n&quot;,a,b);
+    swap(a, b);
+    printf(&quot;a=%d\tb=%d\n&quot;,a,b);
+    return 0;
+}
+</code></pre>
+<p>按值传递程序汇编文件：</p>
+<pre><code class="language-asm">	.file	&quot;main.c&quot;
+	.text
+	.globl	swap
+	.type	swap, @function
+swap:
+.LFB0:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -20(%rbp)
+	movl	%esi, -24(%rbp)
+	movl	-20(%rbp), %eax
+	movl	%eax, -4(%rbp)
+	movl	-24(%rbp), %eax
+	movl	%eax, -20(%rbp)
+	movl	-4(%rbp), %eax
+	movl	%eax, -24(%rbp)
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	swap, .-swap
+	.section	.rodata
+.LC0:
+	.string	&quot;a=%d\tb=%d\n&quot;
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movl	$15, -8(%rbp)
+	movl	$22, -4(%rbp)
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	movl	%edx, %esi
+	movl	%eax, %edi
+	call	swap
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	$0, %eax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.ident	&quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+	.section	.note.GNU-stack,&quot;&quot;,@progbits
+	.section	.note.gnu.property,&quot;a&quot;
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	&quot;GNU&quot;
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:
+</code></pre>
+<p><strong>注：这里a和b在栈中的位置有误，按后面程序中变量的分布都是上边的变量在下，下边的变量在上。根据别人实验结果和我生成的汇编文件，确实是a在下，b在上。而不是图中画的那样a在上b在下。</strong></p>
+<p><strong>注：这里a和b在栈中的位置有误，按后面程序中变量的分布都是上边的变量在下，下边的变量在上。根据别人实验结果和我生成的汇编文件，确实是a在下，b在上。而不是图中画的那样a在上b在下。</strong></p>
+<p><strong>注：这里a和b在栈中的位置有误，按后面程序中变量的分布都是上边的变量在下，下边的变量在上。根据别人实验结果和我生成的汇编文件，确实是a在下，b在上。而不是图中画的那样a在上b在下。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310181219358.png" alt="" /></p>
+<p>后面小测验内容也可作为参考。</p>
+<p>5以下是一个C语言程序代码：</p>
+<pre><code class="language-c">int add(int x, int y)
+{
+    return x+y;
+}
+int caller( )
+{
+    int t1=100 ;
+    int t2=200;
+    int sum=add(t1, t2);
+    return sum;
+}
+</code></pre>
+<p>以下关于上述程序代码在IA-32上执行的叙述中，错误的是（  C  ）。</p>
+<p>A.add函数返回时返回值存放在EAX寄存器中<br />
+B.变量t1和t2被分配在caller函数的栈帧中<br />
+C.传递参数时t1和t2的值从高地址到低地址依次存入栈中<br />
+D.变量sum被分配在caller函数的栈帧中</p>
+<p>6第5题中的caller函数对应的机器级代码如下：</p>
+<pre><code class="language-asm">1      pushl       %ebp
+2      movl       %esp, %ebp
+3      subl         $24, %esp
+4      movl        $100, -12(%ebp)
+5      movl        $200, -8(%ebp) 
+6      movl       -8(%ebp), %eax
+7      movl        %eax, 4(%esp)
+8      movl        -12(%ebp), %eax
+9      movl        %eax, (%esp)  
+10    call          add  
+11    movl        %eax, -4(%ebp) 
+12    movl        -4(%ebp), %eax
+13    leave        
+14    ret 
+</code></pre>
+<p>假定caller的调用过程为P，对于上述指令序列，以下叙述中错误的是（  B   ）。</p>
+<p>A.从上述指令序列可看出，caller函数没有使用被调用者保存寄存器<br />
+B.第3条指令将栈指针ESP向高地址方向移动，以生成当前栈帧<br />
+C.第2条指令使BEP内容指向caller栈帧的底部<br />
+D.第1条指令将过程P的EBP内容压入caller栈帧</p>
+<p>7对于第5题的caller函数以及第6题给出的对应机器级代码，以下叙述中错误的是（   D ）。</p>
+<p>A.参数t1和t2的有效地址分别为<code>R[esp]和R[esp]+4</code><br />
+B.变量t1和t2的有效地址分别为<code>R[ebp]-12和R[ebp]-8</code><br />
+C.参数t1所在的地址低（或小）于参数t2所在的地址<br />
+D.变量t1所在的地址高（或大）于变量t2所在的地址</p>
+<h3 id="4过程调用举例11分钟"><a class="header" href="#4过程调用举例11分钟">4.过程调用举例（11分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171009797.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171011839.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171012064.png" alt="" /></p>
+<h3 id="5递归过程调用举例11分钟"><a class="header" href="#5递归过程调用举例11分钟">5.递归过程调用举例（11分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171038080.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171039149.png" alt="" /></p>
+<h3 id="6过程调用举例14分钟"><a class="header" href="#6过程调用举例14分钟">6.过程调用举例（14分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171047930.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171058219.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171059788.png" alt="" /></p>
+<p>这里的数据按顺序压栈，和函数参数传递不同。</p>
+<p>Code::Blocks運行結果如下所示：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+double fun(int i)
+{
+    volatile double d[1] = {3.14};
+    volatile long int a[2];
+    a[i] = 1073741824;
+    return d[0];
+}
+
+int main()
+{
+    printf(&quot;%f\n&quot;,fun(1));
+    printf(&quot;%f\n&quot;,fun(2));
+    printf(&quot;%f\n&quot;,fun(3));
+    printf(&quot;%f\n&quot;,fun(4));
+    return 0;
+}
+</code></pre>
+<pre><code>3.140000
+3.140000
+3.140000
+3.140000
+</code></pre>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+double fun(int i)
+{
+    volatile double d[1] = {3.14};
+    volatile long int a[2];
+    a[i] = 1073741824;
+    printf(&quot;%d\n&quot;,&amp;d[0]);
+    printf(&quot;%d\n&quot;,&amp;a[0]);
+    printf(&quot;%d\n&quot;,&amp;a[2]);
+    return d[0];
+}
+
+int main()
+{
+    fun(3);
+    return 0;
+}
+</code></pre>
+<pre><code>6487520
+6487504
+6487512
+</code></pre>
+<p>从结果来看，数据确实是按课上所讲的顺序压栈的，不过这里为何是一次+8呢？把<code>volatile long int</code>改为<code>int</code>，结果不变。</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+double fun(int i)
+{
+    double d[1] = {3.14};
+    int a[2];
+    a[i] = 10;
+    printf(&quot;%d\n&quot;,&amp;d[0]);
+    printf(&quot;%d\n&quot;,&amp;a[0]);
+    printf(&quot;%d\n&quot;,&amp;a[2]);
+    return d[0];
+}
+
+int main()
+{
+    fun(3);
+    return 0;
+}
+</code></pre>
+<pre><code>6487520
+6487504
+6487512
+</code></pre>
+<p>这和栈帧那块内容很不同。</p>
+<p>测试汇编代码的环境：Ubuntu 22.04.2 LTS (GNU/Linux 5.15.90.1-microsoft-standard-WSL2 x86_64)</p>
+<p>汇编代码如下：</p>
+<pre><code class="language-asm">	.file	&quot;main.c&quot;
+	.text
+	.globl	fun
+	.type	fun, @function
+fun:
+.LFB0:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$64, %rsp
+	movl	%edi, -52(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movsd	.LC0(%rip), %xmm0
+	movsd	%xmm0, -40(%rbp)
+	movl	-52(%rbp), %eax
+	cltq
+	movq	$1073741824, -32(%rbp,%rax,8)
+	movsd	-40(%rbp), %xmm0
+	movq	%xmm0, %rax
+	movq	-8(%rbp), %rdx
+	subq	%fs:40, %rdx
+	je	.L3
+	call	__stack_chk_fail@PLT
+.L3:
+	movq	%rax, %xmm0
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	fun, .-fun
+	.section	.rodata
+.LC1:
+	.string	&quot;%f\n&quot;
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	$1, %edi
+	call	fun
+	movq	%xmm0, %rax
+	movq	%rax, %xmm0
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
+	movl	$1, %eax
+	call	printf@PLT
+	movl	$2, %edi
+	call	fun
+	movq	%xmm0, %rax
+	movq	%rax, %xmm0
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
+	movl	$1, %eax
+	call	printf@PLT
+	movl	$3, %edi
+	call	fun
+	movq	%xmm0, %rax
+	movq	%rax, %xmm0
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
+	movl	$1, %eax
+	call	printf@PLT
+	movl	$4, %edi
+	call	fun
+	movq	%xmm0, %rax
+	movq	%rax, %xmm0
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
+	movl	$1, %eax
+	call	printf@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.section	.rodata
+	.align 8
+.LC0:
+	.long	1374389535
+	.long	1074339512
+	.ident	&quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+	.section	.note.GNU-stack,&quot;&quot;,@progbits
+	.section	.note.gnu.property,&quot;a&quot;
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	&quot;GNU&quot;
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:
+
+</code></pre>
+<p>注：我的写的程序的汇编代码和课程中的汇编代码存在很大差异，这里暂且存疑。等做完（四）中实验再加料。</p>
+<h2 id="第2讲-选择和循环语句的机器级表示"><a class="header" href="#第2讲-选择和循环语句的机器级表示">第2讲 选择和循环语句的机器级表示</a></h2>
+<h3 id="1选择结构的机器级表示18分钟"><a class="header" href="#1选择结构的机器级表示18分钟">1.选择结构的机器级表示（18分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171102804.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171110075.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171113815.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310180832772.png" alt="" /></p>
+<h3 id="2循环结构的机器级表示14分钟"><a class="header" href="#2循环结构的机器级表示14分钟">2.循环结构的机器级表示（14分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310180836675.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310180845205.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310180846085.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310180903193.png" alt="" /></p>
+<p>and（&amp;）按位与</p>
+<p>&amp;&amp;逻辑与</p>
+<h2 id="第七周小测验"><a class="header" href="#第七周小测验">第七周小测验</a></h2>
+<p>1假设P为调用过程，Q为被调用过程，程序在IA-32处理器上执行，以下有关过程调用的叙述中，错误的是（ B  ）。</p>
+<p>A.C语言程序中的函数调用就是过程调用<br />
+B.从P传到Q的实参无需重新分配空间存放<br />
+C.从Q跳回到Q执行应使用RET指令<br />
+D.从P跳转到Q执行应使用CALL指令</p>
+<p>2以下是有关IA-32的过程调用方式的叙述，错误的是（  B ）。</p>
+<p>A.入口参数使用栈（stack）传递，即所传递的实参被分配在栈中<br />
+B.EBX、ESI、EDI、EBP和ESP都是被调用者保存寄存器<br />
+C.返回地址是CALL指令下一条指令的地址，被保存在栈中<br />
+D.EAX、ECX和EDX都是调用者保存寄存器</p>
+<p>3以下是有关IA-32的过程调用所使用的栈和栈帧的叙述，错误的是（ A  ）。</p>
+<p>A.只能通过将栈指针ESP作为基址寄存器来访问用户栈中的数据<br />
+B.从被调用过程返回调用过程之前，被调用过程会释放自己的栈帧<br />
+C.过程嵌套调用深度越深，栈中栈帧个数越多，严重时会发生栈溢出<br />
+D.每进行一次过程调用，用户栈从高地址向低地址增长出一个栈帧</p>
+<p>4以下是有关C语言程序的变量的作用域和生存期的叙述，错误的是（ D  ）。</p>
+<p>A.不同过程中的非静态局部变量可以同名，是因为它们被分配在不同栈帧中<br />
+B.非静态局部变量可以和全局变量同名，是因为它们被分配在不同存储区<br />
+C.因为非静态局部变量被分配在栈中，所以其作用域仅在过程体内<br />
+D.静态（static型）变量和非静态局部（auto型）变量都分配在对应栈帧中</p>
+<p>5以下是一个C语言程序代码：</p>
+<pre><code class="language-c">int add(int x, int y)
+{
+    return x+y;
+}
+int caller( )
+{
+    int t1=100 ;
+    int t2=200;
+    int sum=add(t1, t2);
+    return sum;
+}
+</code></pre>
+<p>以下关于上述程序代码在IA-32上执行的叙述中，错误的是（  C  ）。</p>
+<p>A.add函数返回时返回值存放在EAX寄存器中<br />
+B.变量t1和t2被分配在caller函数的栈帧中<br />
+C.传递参数时t1和t2的值从高地址到低地址依次存入栈中<br />
+D.变量sum被分配在caller函数的栈帧中</p>
+<p>6第5题中的caller函数对应的机器级代码如下：</p>
+<pre><code class="language-asm">1      pushl       %ebp
+2      movl       %esp, %ebp
+3      subl         $24, %esp
+4      movl        $100, -12(%ebp)
+5      movl        $200, -8(%ebp) 
+6      movl       -8(%ebp), %eax
+7      movl        %eax, 4(%esp)
+8      movl        -12(%ebp), %eax
+9      movl        %eax, (%esp)  
+10    call          add  
+11    movl        %eax, -4(%ebp) 
+12    movl        -4(%ebp), %eax
+13    leave        
+14    ret 
+</code></pre>
+<p>假定caller的调用过程为P，对于上述指令序列，以下叙述中错误的是（  B   ）。</p>
+<p>A.从上述指令序列可看出，caller函数没有使用被调用者保存寄存器<br />
+B.第3条指令将栈指针ESP向高地址方向移动，以生成当前栈帧<br />
+C.第2条指令使BEP内容指向caller栈帧的底部<br />
+D.第1条指令将过程P的EBP内容压入caller栈帧</p>
+<p>7对于第5题的caller函数以及第6题给出的对应机器级代码，以下叙述中错误的是（   D ）。</p>
+<p>A.参数t1和t2的有效地址分别为<code>R[esp]和R[esp]+4</code><br />
+B.变量t1和t2的有效地址分别为<code>R[ebp]-12和R[ebp]-8</code><br />
+C.参数t1所在的地址低（或小）于参数t2所在的地址<br />
+D.变量t1所在的地址高（或大）于变量t2所在的地址</p>
+<p>8以下有关递归过程调用的叙述中，错误的是（   A  ）。</p>
+<p>A.每次递归调用在栈帧中保存的返回地址都不相同<br />
+B.可能需要执行递归过程很多次，因而时间开销大<br />
+C.每次递归调用都会生成一个新的栈帧，因而空间开销大<br />
+D.递归过程第一个参数的有效地址为<code>R[ebp]+8</code></p>
+<p>9以下关于if (cond_expr) then_statement else else_statement选择结构对应的机器级代码表示的叙述中，错误的是（  D  ）。</p>
+<p>A.计算cond_expr的代码段一定在条件转移指令之前<br />
+B.一定包含一条条件转移指令（分支指令）<br />
+C.一定包含一条无条件转移指令<br />
+D.对应then_statement的代码一定在对应else_statement的代码之前</p>
+<p>10以下关于循环结构语句的机器级代码表示的叙述中，错误的是（  A ）。</p>
+<p>A.循环体内执行的指令不包含条件转移指令<br />
+B.一定至少包含一条条件转移指令<br />
+C.循环结束条件通常用一条比较指令CMP来实现<br />
+D.不一定包含无条件转移指令</p>
 
                     </main>
 
