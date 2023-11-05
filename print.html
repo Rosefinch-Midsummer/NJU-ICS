@@ -3514,6 +3514,368 @@ char phone[20];
 <p>C.对于同一个struct型变量，在不同对齐方式下可能会占用不同大小的存储区</p>
 <p>D.总是按其数据宽度进行对齐，例如，double型变量的地址总是8的倍数</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第九周x86-64指令系统"><a class="header" href="#第九周x86-64指令系统">第九周x86-64指令系统</a></h1>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/cs/course1-week9.pdf" target="_blank">在线阅读PDF文档</a></p>
+<ul>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#%E7%AC%AC1%E8%AE%B2-x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0">第1讲 x86-64指令系统概述</a></li>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#%E7%AC%AC2%E8%AE%B2-x86-64%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4">第2讲 x86-64的基本指令</a>
+<ul>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#1x86-64%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A416%E5%88%86%E9%92%9F">1.x86-64传送指令（16分钟）</a></li>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#2x86-64%E7%AE%97%E6%9C%AF%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A420%E5%88%86%E9%92%9F">2.x86-64算术、逻辑运算指令（20分钟）</a></li>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#3x86-64%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E4%B8%BE%E4%BE%8B17%E5%88%86%E9%92%9F">3.x86-64逆向工程举例（17分钟）</a></li>
+</ul>
+</li>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#%E7%AC%AC3%E8%AE%B2-x86-64%E7%9A%84%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8">第3讲 x86-64的过程调用</a>
+<ul>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#1x86-64%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%96%B9%E5%BC%8F16%E5%88%86%E9%92%9F">1.x86-64过程调用的参数传递方式（16分钟）</a></li>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#2x86-64%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E4%B8%BE%E4%BE%8B24%E5%88%86%E9%92%9F">2.x86-64过程调用举例（24分钟）</a></li>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#3ia-32%E5%92%8Cx86-64%E7%9A%84%E6%AF%94%E8%BE%83%E4%B8%BE%E4%BE%8B15%E5%88%86%E9%92%9F">3.IA-32和x86-64的比较举例（15分钟）</a></li>
+</ul>
+</li>
+<li><a href="%E7%AC%AC%E4%B9%9D%E5%91%A8x86-64%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.html#%E7%AC%AC%E4%B9%9D%E5%91%A8%E5%B0%8F%E6%B5%8B%E9%AA%8C">第九周小测验</a></li>
+</ul>
+<h2 id="第1讲-x86-64指令系统概述"><a class="header" href="#第1讲-x86-64指令系统概述">第1讲 x86-64指令系统概述</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040943036.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040945623.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040945989.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040946500.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040946056.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040947660.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040947433.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040949814.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040950877.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040951225.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311040951656.png" alt="" /></p>
+<h2 id="第2讲-x86-64的基本指令"><a class="header" href="#第2讲-x86-64的基本指令">第2讲 x86-64的基本指令</a></h2>
+<h3 id="1x86-64传送指令16分钟"><a class="header" href="#1x86-64传送指令16分钟">1.x86-64传送指令（16分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041038447.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041038092.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041018181.png" alt="" /></p>
+<h3 id="2x86-64算术逻辑运算指令20分钟"><a class="header" href="#2x86-64算术逻辑运算指令20分钟">2.x86-64算术、逻辑运算指令（20分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041039117.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041039916.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041040044.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041042653.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041043272.png" alt="" /></p>
+<h3 id="3x86-64逆向工程举例17分钟"><a class="header" href="#3x86-64逆向工程举例17分钟">3.x86-64逆向工程举例（17分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041113339.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311041116217.png" alt="" /></p>
+<h2 id="第3讲-x86-64的过程调用"><a class="header" href="#第3讲-x86-64的过程调用">第3讲 x86-64的过程调用</a></h2>
+<h3 id="1x86-64过程调用的参数传递方式16分钟"><a class="header" href="#1x86-64过程调用的参数传递方式16分钟">1.x86-64过程调用的参数传递方式（16分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050903369.png" alt="" /></p>
+<pre><code class="language-c">long int sample(long int *xp, long int y)
+{
+        long int t = *xp + y;
+        *xp = t;
+        return t;
+}
+</code></pre>
+<p>執行<code>gcc -O1 -S -m32 sample.c</code></p>
+<pre><code class="language-asm">        .file   &quot;sample.c&quot;
+        .text
+        .globl  sample
+        .type   sample, @function
+sample:
+.LFB0:
+        .cfi_startproc
+        movl    4(%esp), %edx
+        movl    (%edx), %eax
+        addl    8(%esp), %eax
+        movl    %eax, (%edx)
+        ret
+        .cfi_endproc
+.LFE0:
+        .size   sample, .-sample
+        .ident  &quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+        .section        .note.GNU-stack,&quot;&quot;,@progbits
+</code></pre>
+<p>執行<code>gcc -O1 -S -m64 sample.c</code></p>
+<pre><code class="language-asm">        .file   &quot;sample.c&quot;
+        .text
+        .globl  sample
+        .type   sample, @function
+sample:
+.LFB0:
+        .cfi_startproc
+        endbr64
+        movq    %rsi, %rax
+        addq    (%rdi), %rax
+        movq    %rax, (%rdi)
+        ret
+        .cfi_endproc
+.LFE0:
+        .size   sample, .-sample
+        .ident  &quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+        .section        .note.GNU-stack,&quot;&quot;,@progbits
+        .section        .note.gnu.property,&quot;a&quot;
+        .align 8
+        .long   1f - 0f
+        .long   4f - 1f
+        .long   5
+0:
+        .string &quot;GNU&quot;
+1:
+        .align 8
+        .long   0xc0000002
+        .long   3f - 2f
+2:
+        .long   0x3
+3:
+        .align 8
+4:
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050907555.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050909838.png" alt="" /></p>
+<h3 id="2x86-64过程调用举例24分钟"><a class="header" href="#2x86-64过程调用举例24分钟">2.x86-64过程调用举例（24分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050925784.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050932162.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050937655.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050941460.png" alt="" /></p>
+<pre><code class="language-c">void test(char a,char *ap,short b,short *bp,int c,int *cp,long d,long *dp)
+{
+        *ap += a;
+        *bp += b;
+        *cp += c;
+        *dp += d;
+}
+long caller()
+{
+        char a =1 ;
+        short b = 2;
+        int c = 3;
+        long d = 4;
+        test(a,&amp;a,b,&amp;b,c,&amp;c,d,&amp;d);
+        return a*b+c*d;
+}
+</code></pre>
+<pre><code class="language-as">        .file   &quot;sample.c&quot;
+        .text
+        .globl  test
+        .type   test, @function
+test:
+.LFB0:
+        .cfi_startproc
+        endbr64
+        movq    16(%rsp), %rax
+        addb    %dil, (%rsi)
+        addw    %dx, (%rcx)
+        addl    %r8d, (%r9)
+        movq    8(%rsp), %rdx
+        addq    %rdx, (%rax)
+        ret
+        .cfi_endproc
+.LFE0:
+        .size   test, .-test
+        .globl  caller
+        .type   caller, @function
+caller:
+.LFB1:
+        .cfi_startproc
+        endbr64
+        movl    $56, %eax
+        ret
+        .cfi_endproc
+.LFE1:
+        .size   caller, .-caller
+                .ident  &quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+        .section        .note.GNU-stack,&quot;&quot;,@progbits
+        .section        .note.gnu.property,&quot;a&quot;
+        .align 8
+        .long   1f - 0f
+        .long   4f - 1f
+        .long   5
+0:
+        .string &quot;GNU&quot;
+1:
+        .align 8
+        .long   0xc0000002
+        .long   3f - 2f
+2:
+        .long   0x3
+3:
+        .align 8
+4:
+</code></pre>
+<h3 id="3ia-32和x86-64的比较举例15分钟"><a class="header" href="#3ia-32和x86-64的比较举例15分钟">3.IA-32和x86-64的比较举例（15分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050951064.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050953053.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311050956039.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311051003199.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+void test(char a,char *ap,short b,short *bp,int c,int *cp,long d,long *dp)
+{
+        *ap += a;
+        *bp += b;
+        *cp += c;
+        *dp += d;
+}
+long caller()
+{
+        char a =1 ;
+        short b = 2;
+        int c = 3;
+        long d = 4;
+        test(a,&amp;a,b,&amp;b,c,&amp;c,d,&amp;d);
+        return a*b+c*d;
+}
+int main()
+{
+        double a = 10;
+        printf(&quot;a = %d\n&quot;,a);
+}
+</code></pre>
+<p>在WSL2Ubuntu22.04LTS系统上输出结果<code>a = -310744488</code>是个随机值</p>
+<pre><code class="language-as">        .file   &quot;sample.c&quot;
+        .text
+        .globl  test
+        .type   test, @function
+test:
+.LFB23:
+        .cfi_startproc
+        endbr64
+        movq    16(%rsp), %rax
+        addb    %dil, (%rsi)
+        addw    %dx, (%rcx)
+        addl    %r8d, (%r9)
+        movq    8(%rsp), %rdx
+        addq    %rdx, (%rax)
+        ret
+        .cfi_endproc
+.LFE23:
+        .size   test, .-test
+        .globl  caller
+        .type   caller, @function
+caller:
+.LFB24:
+        .cfi_startproc
+        endbr64
+        movl    $56, %eax
+        ret
+        .cfi_endproc
+.LFE24:
+         .size   caller, .-caller
+        .section        .rodata.str1.1,&quot;aMS&quot;,@progbits,1
+.LC1:
+        .string &quot;a = %d\n&quot;
+        .text
+        .globl  main
+        .type   main, @function
+main:
+.LFB25:
+        .cfi_startproc
+        endbr64
+        subq    $8, %rsp
+        .cfi_def_cfa_offset 16
+        movsd   .LC0(%rip), %xmm0
+        leaq    .LC1(%rip), %rsi
+        movl    $1, %edi
+        movl    $1, %eax
+        call    __printf_chk@PLT
+        movl    $0, %eax
+        addq    $8, %rsp
+        .cfi_def_cfa_offset 8
+        ret
+        .cfi_endproc
+.LFE25:
+        .size   main, .-main
+        .section        .rodata.cst8,&quot;aM&quot;,@progbits,8
+        .align 8
+.LC0:
+        .long   0
+        .long   1076101120
+        .ident  &quot;GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0&quot;
+        .section        .note.GNU-stack,&quot;&quot;,@progbits
+        .section        .note.gnu.property,&quot;a&quot;
+        .align 8
+        .long   1f - 0f
+        .long   4f - 1f
+        .long   5
+0:
+        .string &quot;GNU&quot;
+1:
+        .align 8
+        .long   0xc0000002
+        .long   3f - 2f
+2:
+        .long   0x3
+3:
+        .align 8
+4:
+
+</code></pre>
+<h2 id="第九周小测验"><a class="header" href="#第九周小测验">第九周小测验</a></h2>
+<p>1以下有关IA-32和x86-64之间比较的叙述中，错误的是（D    ）。</p>
+<p>A.IA-32的通用寄存器有8个，而x86-64的通用寄存器有16个</p>
+<p>B.IA-32的字长为32位，x86-64的字长为64位并兼容IA-32</p>
+<p>C.IA-32的通用寄存器为8/16/32位，而x86-64的通用寄存器为8/16/32/64位</p>
+<p>D.(unsigned) long型变量在IA-32和x86-64中的长度都是64位（四字）</p>
+<p>解释：long型变量在IA-32中的长度是32位</p>
+<p>2以下有关x86-64寄存器的叙述中，错误的是（ D  ）。</p>
+<p>A.128位的XMM寄存器从原来IA-32中的8个增加到16个</p>
+<p>B.用来存放将要执行的指令的地址的指令指针寄存器为64位的RIP</p>
+<p>C.基址寄存器和变址寄存器都可以是任意一个64位的通用寄存器</p>
+<p>D.任何浮点操作数都被分配在浮点寄存器栈（ST(0)~ST(7)）中</p>
+<p>3以下有关x86-64对齐方式的叙述中，错误的是（B   ）。</p>
+<p>A.int、float型数据必须按4字节边界对齐</p>
+<p>B.long double型数据在内存占12字节空间（96位）</p>
+<p>C.long、double、指针型数据必须按8字节边界对齐</p>
+<p>D.short型数据必须按2字节边界对齐</p>
+<p>解释：long double型数据在内存占16字节空间（128位），实际只用80位</p>
+<p>4以下有关x86-64传送指令的叙述中，错误的是（B   ）。</p>
+<p>A.movl相当于movzlq，能将目的寄存器高32位清0</p>
+<p>B.pushq和popq分别对ESP寄存器减8和加8</p>
+<p>C.相比IA-32，增加了movq指令，可传送64位数据</p>
+<p>D.movzbq的功能是将8位寄存器内容零扩展为64位</p>
+<p>解释：pushq和popq分别对RSP寄存器减8和加8</p>
+<p>5假定变量x的类型为int，对于变量y的初始化声明“long y=(long) x;”，其对应的汇编指令是（A   ）。</p>
+<p>A.movslq  %edx, %rax</p>
+<p>B.movq  %rdx, %rax</p>
+<p>C.movzlq  %edx, %rax</p>
+<p>D.movl    %edx, %eax</p>
+<p>解释：这里进行的是符号扩展，不是零扩展</p>
+<p>6假定变量x的类型为long，对于变量y的初始化声明“int y=(int) x;”，其对应的汇编指令不可能是（   C）。</p>
+<p>A.movl  %edx, %eax</p>
+<p>B.movzlq  %edx, %rax</p>
+<p>C.movsql  %rdx, %eax</p>
+<p>D.movslq  %edx, %rax</p>
+<p>7以下是C语言赋值语句“<code>x=a*b+c</code>;”对应的x86-64汇编代码：</p>
+<pre><code class="language-as">movslq  %edx, %rdx
+movsbl  %sil, %esi
+imull  %edi, %esi
+movslq  %esi, %rsi
+leaq  (%rdx, %rsi), %rax
+</code></pre>
+<p>已知x、a、b和c分别在RAX、RDI、RSI和RDX对应宽度的寄存器中，根据上述汇编指令序列，推测x、a、b和c的数据类型分别为（D    ）。</p>
+<p>A.x—long,  a—long,  b—char,  c—int</p>
+<p>B.x—long,  a—long,  b—char,  c—long</p>
+<p>C.x—long,  a—int,  b—char,  c—long</p>
+<p>D.x—long,  a—int,  b—char,  c—int</p>
+<p>8假定long型变量t、int型变量x和short型变量y分别在RAX、RDI和RSI对应宽度寄存器中，C语言赋值语句“t=(long)(x+y);”对应的x86-64汇编指令序列不可能是（ A  ）。</p>
+<p>A.</p>
+<p>movswq  %si, %rdx</p>
+<p>leaq   (%rdx, %rdi), %rax</p>
+<p>B.</p>
+<p>movswq  %si, %rax</p>
+<p>movslq  %edi, %rdx</p>
+<p>addq  %rdx, %rax</p>
+<p>C.</p>
+<p>movswq  %si, %rsi</p>
+<p>movslq  %edi, %rdi</p>
+<p>leaq  (%rsi, %rdi), %rax</p>
+<p>D.</p>
+<p>movswl  %si, %edx</p>
+<p>addl   %edi, %edx</p>
+<p>movslq  %edx, %rax</p>
+<p>9以下关于x86-64过程调用的叙述中，错误的是（ B  ）。</p>
+<p>A.前6个参数采用通用寄存器传递，其余参数通过栈传递</p>
+<p>B.在通用寄存器中传递的参数，都存放在64位寄存器中</p>
+<p>C.在栈中的参数若是基本类型，则被分配8个字节空间</p>
+<p>D.返回参数存放在RAX相应宽度的寄存器中</p>
+<p>10以下关于IA-32和x86-64指令系统比较的叙述中，错误的是（ D  ）。</p>
+<p>A.对于64位数据，x86-64可用一条指令处理，而IA-32需多条指令处理</p>
+<p>B.对于入口参数，x86-64可用通用寄存器传递，而IA-32需用栈来传递</p>
+<p>C.对于浮点操作数，x86-64存于128位的XMM中，而IA-32存于80位的ST(i)中</p>
+<p>D.对于返回地址，x86-64使用通用寄存器保存，而IA-32使用栈来保存</p>
+<p>解释：对于返回地址，x86-64和IA-32都使用栈来保存</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第十周链接概述和目标文件格式"><a class="header" href="#第十周链接概述和目标文件格式">第十周链接概述和目标文件格式</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第十一周符号及符号解析"><a class="header" href="#第十一周符号及符号解析">第十一周符号及符号解析</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="第十二周重定位及动态链接"><a class="header" href="#第十二周重定位及动态链接">第十二周重定位及动态链接</a></h1>
