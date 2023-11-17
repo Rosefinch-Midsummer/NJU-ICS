@@ -172,6 +172,223 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="第十二周重定位及动态链接"><a class="header" href="#第十二周重定位及动态链接">第十二周重定位及动态链接</a></h1>
+<pre><code>&lt;a href=&quot;https://rosefinch-midsummer.github.io/book/file/cs/course1-week12.pdf&quot; target=&quot;_blank&quot;&gt;在线阅读PDF文档&lt;/a&gt;
+</code></pre>
+<ul>
+<li><a href="#%E7%AC%AC1%E8%AE%B2-%E7%AC%A6%E5%8F%B7%E7%9A%84%E9%87%8D%E5%AE%9A%E4%BD%8D">第1讲 符号的重定位</a>
+<ul>
+<li><a href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B512%E5%88%86%E9%92%9F">重定位的基本概念（12分钟）</a></li>
+<li><a href="#pc%E7%9B%B8%E5%AF%B9%E5%9C%B0%E5%9D%80%E9%87%8D%E5%AE%9A%E4%BD%8D20%E5%88%86%E9%92%9F">PC相对地址重定位（20分钟）</a></li>
+<li><a href="#%E7%BB%9D%E5%AF%B9%E5%9C%B0%E5%9D%80%E9%87%8D%E5%AE%9A%E4%BD%8D11%E5%88%86%E9%92%9F">绝对地址重定位（11分钟）</a></li>
+<li><a href="#%E7%AC%A6%E5%8F%B7%E9%87%8D%E5%AE%9A%E4%BD%8D%E4%B8%BE%E4%BE%8B13%E5%88%86%E9%92%9F">符号重定位举例（13分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC2%E8%AE%B2-%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E8%BD%BD">第2讲 可执行文件的加载</a>
+<ul>
+<li><a href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E8%BD%BD15%E5%88%86%E9%92%9F">可执行文件的加载（15分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC3%E8%AE%B2-%E5%85%B1%E4%BA%AB%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5">第3讲 共享库和动态链接</a>
+<ul>
+<li><a href="#%E5%85%B1%E4%BA%AB%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E6%A6%82%E8%BF%B019%E5%88%86%E9%92%9F">共享库和动态链接概述（19分钟）</a></li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%86%85%E5%BC%95%E7%94%A8%E5%92%8C%E6%A8%A1%E5%9D%97%E9%97%B4%E6%95%B0%E6%8D%AE%E5%BC%95%E7%94%A820%E5%88%86%E9%92%9F">模块内引用和模块间数据引用（20分钟）</a></li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E6%88%96%E8%B7%B3%E8%BD%AC19%E5%88%86%E9%92%9F">模块间的调用或跳转（19分钟）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%91%A8%E5%B0%8F%E6%B5%8B%E9%AA%8C">第十二周小测验</a></li>
+</ul>
+<h2 id="第1讲-符号的重定位"><a class="header" href="#第1讲-符号的重定位">第1讲 符号的重定位</a></h2>
+<h3 id="重定位的基本概念12分钟"><a class="header" href="#重定位的基本概念12分钟">重定位的基本概念（12分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202311080854644.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311110952769.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311110953186.png" alt="" /></p>
+<p>.rel_data和.rel_text保存在.o文件中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311111005628.png" alt="" /></p>
+<pre><code class="language-bash">guangwudi@debian:~/csapp$ readelf -r main.o
+
+Relocation section '.rel.text' at offset 0x198 contains 3 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name
+00000008  00000502 R_386_PC32        00000000   __x86.get_pc_thunk.ax
+0000000d  0000060a R_386_GOTPC       00000000   _GLOBAL_OFFSET_TABLE_
+00000014  00000704 R_386_PLT32       00000000   myfunc1
+
+Relocation section '.rel.eh_frame' at offset 0x1b0 contains 2 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name
+00000020  00000202 R_386_PC32        00000000   .text
+00000044  00000302 R_386_PC32        00000000   .text.__x86.get_p[...]
+
+</code></pre>
+<h3 id="pc相对地址重定位20分钟"><a class="header" href="#pc相对地址重定位20分钟">PC相对地址重定位（20分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311120917267.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140846988.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140846272.png" alt="" /></p>
+<p>and $0xfffffff0,%esp作用是調整棧頂位置使其為16的倍數（IA-32系統）。</p>
+<p>ffff fffc的真值為-4</p>
+<p>7:R_386_PC32 swap指swap是從第7個字節單元開始的重定位條目</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140847605.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140902884.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311120932743.png" alt="" /></p>
+<p>注意：人類和機器計算PC（下一條指令的地址）的方式略有不同。</p>
+<p>重定位後call指令的機器代碼為&quot;e8 09 00 00 00&quot;</p>
+<p>call指令下條指令地址其實是當前PC的值</p>
+<h3 id="绝对地址重定位11分钟"><a class="header" href="#绝对地址重定位11分钟">绝对地址重定位（11分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140847704.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140848489.png" alt="" /></p>
+<p>buf的初始值是個確定的值，不需要重定位。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140848627.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140848728.png" alt="" /></p>
+<h3 id="符号重定位举例13分钟"><a class="header" href="#符号重定位举例13分钟">符号重定位举例（13分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140849765.png" alt="" /></p>
+<p>swap()函數裏面除了局部變量temp其餘的變量都是引用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140922471.png" alt="" /></p>
+<p>注意：這裏的PPT有錯！！d應該爲c。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140849949.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140926805.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311140849388.png" alt="" /></p>
+<h2 id="第2讲-可执行文件的加载"><a class="header" href="#第2讲-可执行文件的加载">第2讲 可执行文件的加载</a></h2>
+<h3 id="可执行文件的加载15分钟"><a class="header" href="#可执行文件的加载15分钟">可执行文件的加载（15分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311130921378.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311130935943.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311130936892.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311130936306.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311130936891.png" alt="" /></p>
+<h2 id="第3讲-共享库和动态链接"><a class="header" href="#第3讲-共享库和动态链接">第3讲 共享库和动态链接</a></h2>
+<h3 id="共享库和动态链接概述19分钟"><a class="header" href="#共享库和动态链接概述19分钟">共享库和动态链接概述（19分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131014038.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131013418.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131014538.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131016494.png" alt="" /></p>
+<pre><code class="language-bash">guangwudi@debian:~/csapp$ gcc -c myproc1.c myproc2.c
+guangwudi@debian:~/csapp$ gcc -shared -fPIC -o mylib.so myproc1.o myproc2.o
+guangwudi@debian:~/csapp$ gcc -c main.c
+guangwudi@debian:~/csapp$ gcc -o myproc main.o ./mylib.so
+guangwudi@debian:~/csapp$ ./myproc
+This is myfunc1!
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131016585.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131017462.png" alt="" /></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;dlfcn.h&gt;
+int main()
+{
+    void *handle;
+    void *(myfunc1)();
+    char *error;
+    handle = dlopen(&quot;./mylib.so&quot;,RTLD_LAZY);
+    if(!handle)
+    {
+        fprintf(stderr,&quot;%s\n&quot;,dlerror());
+        exit(1);
+    }
+    myfunc1 = dlsym(handle,&quot;myfunc1&quot;);
+    if((error = dlerror()) != NULL)
+    {
+        fprintf(stderr,&quot;%s\n&quot;,dlerror());
+        exit(1);
+    }
+    myfunc1();
+    if(dlclose(handle) &lt; 0)
+    {
+        fprintf(stderr,&quot;%s\n&quot;,dlerror());
+        exit(1);
+    }
+    return 0;
+}
+
+</code></pre>
+<p>在Code::Blocks上执行报错<code>fatal error: dlfcn.h: No such file or directory</code></p>
+<h3 id="模块内引用和模块间数据引用20分钟"><a class="header" href="#模块内引用和模块间数据引用20分钟">模块内引用和模块间数据引用（20分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131020757.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131021823.png" alt="" /></p>
+<p>这里的ff ff ff db是偏移地址，运算后得到下一条指令地址8048344</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131023551.png" alt="" /></p>
+<p>静态链接只需要用1条mov指令，这里用了5条指令。</p>
+<p>这里的00 00 00 05是偏移地址，运算后得到下一条指令地址0000 34c</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131022276.png" alt="" /></p>
+<h3 id="模块间的调用或跳转19分钟"><a class="header" href="#模块间的调用或跳转19分钟">模块间的调用或跳转（19分钟）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131022761.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311131022953.png" alt="" /></p>
+<p><code>jmp *0x8049590</code>是间接寻址</p>
+<p>第一次运行程序时需要重定位，以后运行不需要重定位，只需要call、jmp这两条指令。</p>
+<h2 id="第十二周小测验"><a class="header" href="#第十二周小测验">第十二周小测验</a></h2>
+<p>1以下有关重定位功能的叙述中，错误的是（  C  ）。</p>
+<p>A.重定位的最终目标是重新确定各模块合并后每个引用所指向的目标地址</p>
+<p>B.重定位的第二步是确定每个段的起始地址，并确定段内每个定义处符号的地址</p>
+<p>C.重定位的最后一步是将引用处的地址修改为与之关联（绑定）的定义处的首地址</p>
+<p>D.重定位的第一步应先将相同的节合并，且将具有相同存取属性的节合并成段</p>
+<p>解析：  C、重定位最后一步是对引用处的地址进行重定位，重定位的方式有多种，只有绝对地址方式才是将引用处的地址修改为与之关联（绑定）的定义处的首地址，而对于其他重定位方式，就不一定是这样，例如，对于PC相对地址方式，引用处填写的是一个相对地址。</p>
+<p>2以下有关重定位信息的叙述中，错误的是（ A  ）。</p>
+<p>A.重定位信息是由编译器在生成汇编指令时产生的</p>
+<p>B.重定位信息包含需重定位的位置、绑定的符号和重定位类型</p>
+<p>C.数据中的重定位信息在可重定位目标文件的.rel.data节中</p>
+<p>D.指令中的重定位信息在可重定位目标文件的.rel.text节中</p>
+<p>解析：  A、重定位信息应该是在汇编阶段生成的，只有在汇编阶段生成机器指令时才知道需要进行重定位的位置，因为这些需重定位的位置在机器指令中，例如，CALL指令中的偏移地址等。</p>
+<p>3假定“<code>int buf[2]={10,50};</code>”所定义的buf被分配在静态数据区，其首地址为0x8048930，bufp1为全局变量，被分配在buf随后的存储空间。以下关于“<code>int *bufp1 = &amp;buf[1];</code>”的重定位的描述中，错误的是（  B  ）。</p>
+<p>A.bufp1的地址为0x8048938，重定位前的内容为04H、00H、00H、00H</p>
+<p>B.在相应的重定位条目中，对bufp1和buf的引用均采用绝对地址方式</p>
+<p>C.在可执行目标文件中，地址0x8048938开始的4个字节为34H、89H、04H、08H</p>
+<p>D.在可重定位目标文件的.rel.data节中，有一个引用buf的重定位条目</p>
+<p>解析：  A、因为buf有2个数组元素，每个元素占4B，因此bufp1的地址为0x8048930+8=0x8048938，重定位时与引用绑定的符号是buf，即绑定的是<code>&amp;buf[0]</code>，而真正赋给bufp1的是<code>&amp;buf[1]</code>，引用的地址和绑定的地址相差4，所以重定位前的内容为十六进制数04 00 00 00。  B、在重定位条目中只有对buf的引用，没有对bufp1的引用，这里bufp1是一个定义。  C、可执行文件已经进行了重定位，所以，bufp1所在的地址0x8048938处，应该是重定位后的值，显然应该是<code>buf[1]</code>的地址。重定位时通过初始值加上buf的值得到，即4+0x8048930=0x8048934，小端方式下，4个字节分别为34H、89H、04H、08H。  D、因为“<code>int *bufp1 = &amp;buf[1];</code>”是一个声明，也即是对变量bufp1的数据类型的定义和初始化，因此这个需要重定位的初始化值将被存储在.data节中，因而重定位条目在.rel.data节中，并且是绑定buf的一个引用，即引用buf的一个重定位条目。</p>
+<p>4假定“<code>int buf[2]={10,50};</code>”所定义的buf被分配在静态数据区，其首地址为0x8048930，bufp1为全局变量，也被分配在静态数据区。以下关于“<code>bufp1 = &amp;buf[1];</code>”的重定位的描述中，错误的是（  A ）。</p>
+<p>A.在可重定位目标文件的.rel.data节中，有一个与bufp1相关的重定位条目</p>
+<p>B.在可重定位目标文件的.rel.text节中，有一个与buf相关的重定位条目</p>
+<p>C.在相应的重定位条目中，对bufp1和buf的引用均采用绝对地址方式</p>
+<p>D.可用一条mov指令实现该赋值语句，该mov指令中有两处需要重定位</p>
+<p>解析：  A、因为“<code>bufp1 = &amp;buf[1];</code>”是一个赋值语句，而不是一个声明，因而不需要对.data节中的bufp1变量进行重定位，也即重定位条目不在.rel.data节中。  B、赋值语句“ <code>bufp1 = &amp;buf[1];</code>”用movl指令可以实现，所以，对buf的引用出现在机器代码中，即.text节中，因而重定位条目在.rel.text节中。  C、赋值语句“ <code>bufp1 = &amp;buf[1];</code>”用movl指令可以实现，其源操作数和目操作数都是绝对地址方式。  D、赋值语句“ <code>bufp1 = &amp;buf[1];</code>”用movl指令可以实现，其源操作数和目操作数都需要重定位。</p>
+<p>“<code>bufp1 = &amp;buf[1];</code>”是一个赋值语句，而不是一个变量声明（定义），因而不需要对.data节中的bufp1变量进行重定位，也即重定位条目不在.rel.data节中。</p>
+<p>5以下是有关在Linux系统中启动可执行目标文件执行的叙述，其中错误的是（ A   ）。</p>
+<p>A.可在CUI（命令行用户界面）中双击可执行目标文件对应的图标来启动其执行</p>
+<p>B.不管是哪种启动执行方式，最终都是通过调用execve()系统调用函数实现的</p>
+<p>C.可以通过在一个程序中调用execve()系统调用函数来启动可执行文件执行</p>
+<p>D.可在CUI（命令行用户界面）中的命令行提示符后输入对应的命令来启动其执行</p>
+<p>解释：CUI（命令行用户界面）中<strong>没有</strong>可执行目标文件对应的图标</p>
+<p>6以下是有关在Linux系统中加载可执行目标文件的叙述，其中错误的是（ D  ）。</p>
+<p>A.任何可执行目标文件中的可装入段被映射到一个统一的虚拟地址空间</p>
+<p>B.加载器通过可执行目标文件中的程序头表对可装入段进行加载</p>
+<p>C.可执行目标文件的加载通过execve()函数调用的加载器来完成</p>
+<p>D.在可执行目标文件的加载过程中，其中的指令和数据被读入主存</p>
+<p>解释：其中的指令和数据<strong>没有</strong>被读入主存</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202311130936891.png" alt="" /></p>
+<p>7以下是在Linux系统中启动并加载可执行目标文件过程中shell命令行解释程序所做的部分操作：</p>
+<p>① 构造构造argv和envp</p>
+<p>② 调用fork()系统调用函数</p>
+<p>③ 调用execve()系统调用函数</p>
+<p>④ 读入命令（可执行文件名）及参数</p>
+<p>启动并加载可执行目标文件的正确步骤是（ D   ）。</p>
+<p>A.④→①→③→②</p>
+<p>B.①→②→③→④</p>
+<p>C.②→④→①→③</p>
+<p>D.④→①→②→③</p>
+<p>8以下是有关动态链接及其所链接的共享库以及动态链接生成的可执行目标文件的叙述，其中错误的是（ D  ）。</p>
+<p>A.共享库在Linux下称为动态共享对象（.so），在Windows下称为动态链接库（.dll）</p>
+<p>B.可执行目标文件在加载或执行时，系统将会调出动态链接器利用共享库对其进行动态链接</p>
+<p>C.生成的可执行目标文件是部分链接的，也即，其中还有部分引用没有进行重定位</p>
+<p>D.可执行目标文件由动态链接器对可重定位目标文件和共享库中部分信息进行链接而成</p>
+<p>解释：可执行目标文件在加载或执行时，系统将会调出动态链接器利用共享库对其进行动态链接</p>
+<p>9以下是有关静态链接和动态链接比较的叙述，其中错误的是（  B  ）。</p>
+<p>A.静态库函数更新后需对程序重新编译和链接，而共享库函数更新后程序无需重新编译和链接</p>
+<p>B.静态链接情况下静态库函数在加载时被链接，动态链接情况下共享库函数可在加载或运行时被链接</p>
+<p>C.静态库函数代码包含在可执行目标文件中，而共享库函数代码不包含在可执行目标文件中</p>
+<p>D.静态库函数代码包含在进程代码段中，而共享库函数代码不包含在进程代码段中</p>
+<p>解释：</p>
+<p><a href="https://tnie.github.io/2016/12/09/library-static-dynamic/">共享库 &amp; 静态库</a></p>
+<p>通常情况下，对函数库的链接是放在编译时期（compile time）完成的，所有相关的对象文件（object file）与牵涉到的函数库（library）被链接合成一个可执行文件（executable file）。程序在运行时，与函数库再无瓜葛，因为所有需要的函数已拷贝到自己门下。所以这些函数库被成为静态库（static libaray），通常文件名为“libxxx.a”的形式。</p>
+<p>静态库的优点是可以在不用重新<strong>编译</strong>程序<strong>库</strong>代码的情况下，进行程序的<strong>重新链接</strong>，这种方法节省了编译过程的时间（在编译大型程序的时候，需要花费很长的时间）。静态库的另一个优点是开发者可以提供库文件给使用的人员，不用开放源代码，这是库函数提供者经常采用的手段。</p>
+<p>动态链接库是程序运行时加载的库，当动态链接库正确安装后，所有的程序都可以使用动态库来运行程序。动态链接库是目标文件的集合，目标文件在动态链接库中的组织方式是按照特殊方式形成的。库中函数和变量的地址是相对地址，不是绝对地址，其真实地址在调用动态库的程序加载时形成。</p>
+<p>动态链接库的名称有别名（soname）、真名（realname）和链接名（linker name）。别名由一个前缀 lib，然后是库的名字，再加上一个后缀“.so”构成。真名是动态链接库真实名称，一般总是在别名的基础加上一个小版本号，发布版本等构成。除此之外，还有一个链接名，即程序链接时使用的库的名字。（更详细的内容在第 6 章讲述共享库的版本时展开）</p>
+<p>在动态链接库安装的时候，总是复制文件到某个目录下，然后用一个软连接生成别名，在库文件进行更新的时候，仅仅更新软链接即可。</p>
+<p>把库函数推迟到程序运行时期载入的好处：</p>
+<ul>
+<li>可以实现进程之间的资源共享；</li>
+<li>将一些程序升级变得简单；</li>
+<li>甚至可以真正做到链接载入完全由程序员在程序代码中控制；</li>
+</ul>
+<p>10一个共享库文件（.so文件）由多个模块（.o文件）生成。在生成共享库文件的过程中，需要对.o文件进行处理，以生成位置无关代码。以下有关位置无关代码（PIC）生成的叙述中，错误的是（ C  ）。</p>
+<p>A.模块内函数之间的调用可用PC相对地址实现，无需动态链接器进行重定位</p>
+<p>B.模块外数据的引用需要动态链接器进行重定位，重定位时在GOT中填入外部数据的地址</p>
+<p>C.模块间函数调用需要动态链接器进行重定位，重定位时在GOT和PLT中填入相应内容</p>
+<p>D.模块内数据的引用无需动态链接器进行重定位，因为引用与定义间相对位置固定</p>
+<p>解释：Lazy Binding才需要在PLT填入相应内容</p>
 
                     </main>
 
