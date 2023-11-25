@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第五周Cache替换算法和写策略 - 计算机系统基础</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="弁言.html"><strong aria-hidden="true">1.</strong> 弁言</a></li><li class="chapter-item expanded "><a href="计算机系统基础一课程概述.html"><strong aria-hidden="true">2.</strong> 计算机系统基础一课程概述.md</a></li><li class="chapter-item expanded "><a href="第一周计算机系统概述.html"><strong aria-hidden="true">3.</strong> 第一周计算机系统概述</a></li><li class="chapter-item expanded "><a href="第二周数据的表示和存储.html"><strong aria-hidden="true">4.</strong> 第二周数据的表示和存储</a></li><li class="chapter-item expanded "><a href="第三周运算电路基础.html"><strong aria-hidden="true">5.</strong> 第三周运算电路基础</a></li><li class="chapter-item expanded "><a href="第四周乘除运算及浮点数运算.html"><strong aria-hidden="true">6.</strong> 第四周乘除运算及浮点数运算</a></li><li class="chapter-item expanded "><a href="第五周IA-32指令系统概述.html"><strong aria-hidden="true">7.</strong> 第五周IA-32指令系统概述</a></li><li class="chapter-item expanded "><a href="第六周IA-32指令类型.html"><strong aria-hidden="true">8.</strong> 第六周IA-32指令类型</a></li><li class="chapter-item expanded "><a href="第七周C语言语句的机器级表示.html"><strong aria-hidden="true">9.</strong> 第七周C语言语句的机器级表示</a></li><li class="chapter-item expanded "><a href="第八周复杂数据类型的机器级表示.html"><strong aria-hidden="true">10.</strong> 第八周复杂数据类型的机器级表示</a></li><li class="chapter-item expanded "><a href="第九周x86-64指令系统.html"><strong aria-hidden="true">11.</strong> 第九周x86-64指令系统</a></li><li class="chapter-item expanded "><a href="第十周链接概述和目标文件格式.html"><strong aria-hidden="true">12.</strong> 第十周链接概述和目标文件格式</a></li><li class="chapter-item expanded "><a href="第十一周符号及符号解析.html"><strong aria-hidden="true">13.</strong> 第十一周符号及符号解析</a></li><li class="chapter-item expanded "><a href="第十二周重定位及动态链接.html"><strong aria-hidden="true">14.</strong> 第十二周重定位及动态链接</a></li><li class="chapter-item expanded "><a href="计算机系统基础一期末考试.html"><strong aria-hidden="true">15.</strong> 计算机系统基础一期末考试</a></li><li class="chapter-item expanded "><a href="计算机系统基础二课程概述.html"><strong aria-hidden="true">16.</strong> 计算机系统基础二课程概述</a></li><li class="chapter-item expanded "><a href="第一周程序执行概述.html"><strong aria-hidden="true">17.</strong> 第一周程序执行概述</a></li><li class="chapter-item expanded "><a href="第二周主存储器组织.html"><strong aria-hidden="true">18.</strong> 第二周主存储器组织</a></li><li class="chapter-item expanded "><a href="第三周磁盘存储器.html"><strong aria-hidden="true">19.</strong> 第三周磁盘存储器</a></li><li class="chapter-item expanded "><a href="第四周高速缓存概述.html"><strong aria-hidden="true">20.</strong> 第四周高速缓存概述</a></li><li class="chapter-item expanded "><a href="第五周Cache替换算法和写策略.html" class="active"><strong aria-hidden="true">21.</strong> 第五周Cache替换算法和写策略</a></li><li class="chapter-item expanded "><a href="第六周虚拟存储器.html"><strong aria-hidden="true">22.</strong> 第六周虚拟存储器</a></li><li class="chapter-item expanded "><a href="第七周IA-32/Linux中的地址转换.html"><strong aria-hidden="true">23.</strong> 第七周IA-32/Linux中的地址转换</a></li><li class="chapter-item expanded "><a href="计算机系统基础二期末考試.html"><strong aria-hidden="true">24.</strong> 计算机系统基础二期末考試</a></li><li class="chapter-item expanded "><a href="计算机系统基础三课程概述.html"><strong aria-hidden="true">25.</strong> 计算机系统基础三课程概述</a></li><li class="chapter-item expanded "><a href="第一周进程和进程的上下文切换.html"><strong aria-hidden="true">26.</strong> 第一周进程和进程的上下文切换</a></li><li class="chapter-item expanded "><a href="第二周异常和中断.html"><strong aria-hidden="true">27.</strong> 第二周异常和中断</a></li><li class="chapter-item expanded "><a href="第三周IA-32中的异常及中断机制.html"><strong aria-hidden="true">28.</strong> 第三周IA-32中的异常及中断机制</a></li><li class="chapter-item expanded "><a href="第四周IA-32Linux中异常及中断处理.html"><strong aria-hidden="true">29.</strong> 第四周IA-32/Linux中异常/中断处理</a></li><li class="chapter-item expanded "><a href="第五周用户空间IO软件.html"><strong aria-hidden="true">30.</strong> 第五周用户空间I/O软件</a></li><li class="chapter-item expanded "><a href="第六周系统总线和系统互连.html"><strong aria-hidden="true">31.</strong> 第六周系统总线和系统互连</a></li><li class="chapter-item expanded "><a href="第七周IO方式和内核空间IO软件.html"><strong aria-hidden="true">32.</strong> 第七周IO方式和内核空间IO软件</a></li><li class="chapter-item expanded "><a href="计算机系统基础三期末考試.html"><strong aria-hidden="true">33.</strong> 计算机系统基础三期末考試</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">计算机系统基础</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="第五周cache替换算法和写策略"><a class="header" href="#第五周cache替换算法和写策略">第五周Cache替换算法和写策略</a></h1>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/cs/course2-week5.pdf" target="_blank">在线阅读PDF文档</a></p>
+<ul>
+<li><a href="#%E7%AC%AC1%E8%AE%B2-cache%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95">第1讲 Cache替换算法</a>
+<ul>
+<li><a href="#%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B03m09s">替换算法概述（3m09s）</a></li>
+<li><a href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BAfifo%E7%AE%97%E6%B3%956m08s">先进先出（FIFO）算法（6m08s）</a></li>
+<li><a href="#%E6%9C%80%E8%BF%91%E6%9C%80%E5%B0%91%E7%94%A8lru%E7%AE%97%E6%B3%9510m06s">最近最少用（LRU）算法（10m06s）</a></li>
+<li><a href="#cache%E4%B8%BE%E4%BE%8B15m05s">Cache举例（15m05s）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC2%E8%AE%B2--cache%E5%86%99%E7%AD%96%E7%95%A5%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98">第2讲  Cache写策略（一致性问题）</a>
+<ul>
+<li><a href="#%E5%86%99%E7%AD%96%E7%95%A5%E6%A6%82%E8%BF%B011m11s">写策略概述（11m11s）</a></li>
+<li><a href="#%E5%86%99%E7%AD%96%E7%95%A5%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B08m28s">写策略算法描述（8m28s）</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC3%E8%AE%B2--cache%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9B%A0%E7%B4%A05m49s">第3讲  Cache实现的几个因素（5m49s）</a></li>
+<li><a href="#%E7%AC%AC4%E8%AE%B2--cache%E5%AE%9E%E7%8E%B0%E4%B8%BE%E4%BE%8B8m25s">第4讲  Cache实现举例（8m25s）</a></li>
+<li><a href="#%E7%AC%AC5%E8%AE%B2--cache%E7%BB%BC%E5%90%88%E8%AE%A1%E7%AE%97%E4%B8%BE%E4%BE%8B12m49s">第5讲  Cache综合计算举例（12m49s）</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E5%91%A8%E5%B0%8F%E6%B5%8B%E9%AA%8C">第五周小测验</a></li>
+</ul>
+<h2 id="第1讲-cache替换算法"><a class="header" href="#第1讲-cache替换算法">第1讲 Cache替换算法</a></h2>
+<h3 id="替换算法概述3m09s"><a class="header" href="#替换算法概述3m09s">替换算法概述（3m09s）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212352248.png" alt="" /></p>
+<h3 id="先进先出fifo算法6m08s"><a class="header" href="#先进先出fifo算法6m08s">先进先出（FIFO）算法（6m08s）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212352500.png" alt="" /></p>
+<h3 id="最近最少用lru算法10m06s"><a class="header" href="#最近最少用lru算法10m06s">最近最少用（LRU）算法（10m06s）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212353352.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212353227.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212354021.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212354694.png" alt="" /></p>
+<h3 id="cache举例15m05s"><a class="header" href="#cache举例15m05s">Cache举例（15m05s）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212354489.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311210929229.png" alt="" /></p>
+<p>0/64/48</p>
+<p>淘汰0，写入64；淘汰64写入48</p>
+<p>后写入的比先写入的多更近</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212355450.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212355476.png" alt="" /></p>
+<h2 id="第2讲--cache写策略一致性问题"><a class="header" href="#第2讲--cache写策略一致性问题">第2讲  Cache写策略（一致性问题）</a></h2>
+<h3 id="写策略概述11m11s"><a class="header" href="#写策略概述11m11s">写策略概述（11m11s）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212355438.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212356873.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212356798.png" alt="" /></p>
+<h3 id="写策略算法描述8m28s"><a class="header" href="#写策略算法描述8m28s">写策略算法描述（8m28s）</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212356091.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212357745.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212358375.png" alt="" /></p>
+<h2 id="第3讲--cache实现的几个因素5m49s"><a class="header" href="#第3讲--cache实现的几个因素5m49s">第3讲  Cache实现的几个因素（5m49s）</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212358034.png" alt="" /></p>
+<p>系统中的Cache数目</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311212359421.png" alt="" /></p>
+<p>Harvard结构：指令数据分开存储</p>
+<p>分立是为了方便并行，避免阻塞</p>
+<h2 id="第4讲--cache实现举例8m25s"><a class="header" href="#第4讲--cache实现举例8m25s">第4讲  Cache实现举例（8m25s）</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311220000293.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311220000691.png" alt="" /></p>
+<h2 id="第5讲--cache综合计算举例12m49s"><a class="header" href="#第5讲--cache综合计算举例12m49s">第5讲  Cache综合计算举例（12m49s）</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311220001834.png" alt="" /></p>
+<p>（1）只算数据Cache</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311220001710.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311220002491.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost03/img/202311220002092.png" alt="" /></p>
+<h2 id="第五周小测验"><a class="header" href="#第五周小测验">第五周小测验</a></h2>
+<p>错题序号：4、9</p>
+<p>1以下关于cache替换算法的叙述中，错误的是（ C ）。</p>
+<p>A.组相联和全相联映射都必须考虑如何进行替换</p>
+<p>B.LRU算法需要对每个cache行记录替换信息，即LRU位</p>
+<p>C.先进先出算法无需对每个cache行记录替换信息</p>
+<p>D.直接映射方式是多对一映射，无需考虑替换问题</p>
+<p>解析：  C、先进先出算法需要对每个cache行打一个时间戳，记录何时装入了一个新的主存块。</p>
+<p>2以下关于LRU替换算法的叙述中，错误的是（B  ）。</p>
+<p>A.是一种栈算法，其命中率随组的增大而提高</p>
+<p>B.全相联映射方式特别适合采用LRU替换算法</p>
+<p>C.基于cache行有多久没有被访问来进行替换</p>
+<p>D.LRU是Least-Recently Used的缩写，表示最近最少用</p>
+<p>解析：  B、LRU替换算法需要为每个cache行设置一个计数器，用于记录对应行的使用情况。计数器的位数与组的大小有关，例如，对于2-路组相联，每组有两个cache行，计数器为1位；对于4-路组相联，计数器为2位。对于全相联，则组的大小等于cache行数，因而计数器的位数等于cache行号的位数，这样，不仅计数器所占容量开销大，而且对计数器进行修改的时间开销也大。因而LRU算法不适合应用于全相联映射方式。</p>
+<p>3以下关于写策略的叙述中，错误的是（ A ）。</p>
+<p>A.只有在写命中时才需考虑写策略问题，在写不命中时无需考虑</p>
+<p>B.对于写命中，有直写（Write Through）和回写（Write Back）两种写策略</p>
+<p>C.多个带cache的CPU共享主存时会出现写策略问题</p>
+<p>D.写策略问题也是cache一致性问题</p>
+<p>解析：  A、写命中指要写的单元已经在cache中，写不命中指要写的单元不在cache中。不管是写命中还是写不命中，都需要考虑写策略问题。在写命中时，可以采用直写（Write Through）或回写（Write Back）方式。前者在写cache的同时也写主存；后者仅写cache，在被替换出去时再将整个主存块写入主存。在写不命中时，可以采用写分配方式，把主存块装入cache，然后采用写命中时的直写或回写策略进行处理，也可以采用非写分配（Not Write Allocate）方式，直接写主存而不写cache。</p>
+<p>4以下关于直写（Write Through）策略的叙述中，错误的是（C  ）。</p>
+<p>A.通常在cache和主存之间设置写缓冲，以加快写操作速度</p>
+<p>B.在写不命中时，若采用非写分配（Not Write Allocate）方式，则只能用直写替换策略</p>
+<p>C.通常在cache行中加“dirty bit”，以标识对应行是否被修改过</p>
+<p>D.每次写操作都会写cache中的内容和在主存中的副本</p>
+<p>解析：  C、因为直写（Write Through）策略会同时写cache和主存，因此，总能保持cache和主存的一致性，无需用“dirty bit”来标识cache行是否被修改。而回写（Write Back）策略仅写cache，在被替换出去时，需要根据dirty bit是否为1，以了解cache行中的主存块是否被修改，若被修改，则说明发生了cache和主存的不一致，需要将整个主存块写入主存。</p>
+<p>5假定主存地址位数为32位，按字节编址，主存和cache之间采用直接映射方式，主存块大小为1个字，每字32位，写操作时采用直写（Write Through）方式，则能存放32K字数据的cache的总容量至少应有（ A  ）位。</p>
+<p>A.1536K</p>
+<p>B.1568K</p>
+<p>C.1600K</p>
+<p>D.1504K</p>
+<p>解析：  A、cache共有32K字/1字=32K行，故行号占15位；每个主存块为1字=32位=4B，故块内地址占2位。因此，标志占32-15-2=15位。直接映射方式无需考虑替换算法，故没有替换信息；直写方式无需修改位（dirty bit）。因而cache总容量为32K×(1+15+32)=1536K位。</p>
+<p>6假定主存地址位数为32位，按字节编址，主存和cache之间采用直接映射方式，主存块大小为1个字，每字32位，写操作时采用回写（Write Back）方式，则能存放32K字数据的cache的总容量至少应有（ D  ）位。</p>
+<p>A.1536K</p>
+<p>B.1600K</p>
+<p>C.1504K</p>
+<p>D.1568K</p>
+<p>解析：  D、cache共有32K字/1字=32K行，故行号占15位；每个主存块为1字=32位=4B，故块内地址占2位。因此，标志占32-15-2=15位。直接映射方式无需考虑替换算法，故没有替换信息；回写（Write Back）方式需1位修改位（dirty bit）。因而cache总容量为32K×(1+15+1+32)=1568K位。</p>
+<p>7假定主存地址位数为32位，按字节编址，主存和cache之间采用全相联映射方式，主存块大小为4个字，每字32位，采用回写（Write Back）方式和随机替换策略，则能存放32K字数据的cache的总容量至少应有（  A ）位。</p>
+<p>A.1264K</p>
+<p>B.1256K</p>
+<p>C.5024K</p>
+<p>D.5056K</p>
+<p>解析：  A、cache共有32K字/4字=8K行，每个主存块为4字=4×32位=16B，故块内地址占4位。因此，全相联映射方式下，标志占32-4=28位。随机替换算法没有替换信息；回写（Write Back）方式需1位修改位（dirty bit）。因而cache总容量为8K×(1+28+1+4×32)=1264K位。</p>
+<p>8假定主存地址位数为32位，按字节编址，主存和cache之间采用4-路组相联映射方式，主存块大小为4个字，每字32位，采用直写（Write Through）方式和LRU替换策略，则能存放32K字数据的cache的总容量至少应有（D   ）位。</p>
+<p>A.1168K</p>
+<p>B.4736K</p>
+<p>C.4672K</p>
+<p>D.1184K</p>
+<p>解析：  D、cache共有32K字/4字=8K行，因为采用4-路组相联，因而共有8K/4=2K组，组号占11位；每个主存块为4字=4×32位=16B，故块内地址占4位。因此，标志占32-11-4=17位。4路组相联方式下，LRU替换算法需要每行有2位LRU位；直写（Write Through）方式无需修改位（dirty bit）。因而cache总容量为8K×(1+17+2+4×32)=1184K位。</p>
+<p>9以下关于cache大小、主存块大小和cache缺失率之间关系的叙述中，错误的是（ C ）。</p>
+<p>A.cache容量越大，cache缺失率越低</p>
+<p>B.主存块大小通常为几十到上百个字节</p>
+<p>C.主存块越大，cache缺失率越低</p>
+<p>D.主存块大小和cache容量无密切关系</p>
+<p>解析：  C、主存块太小，则不能很好地利用空间局部性，从而导致缺失率变高，但是，主存块太大，也会使得cache行数变少，即cache中可以存放主存块的位置变少，从而降低命中率。因此，主存块不可以太小，也不可以太大，通常为几十到上百个字节。</p>
+<p>10某32位机按字节编址。数据cache有16行，主存块大小为64B，采用2-路组相联映射。对于以下程序A，假定编译时i, j, sum均分配在寄存器中，数组a按行优先方式存放，其首址为3200，则a[1][0]所映射的cache组号、程序A的数据cache命中率各是（ C  ）。</p>
+<pre><code class="language-c">short a[256][256];
+……
+short sum_array() 
+{ 
+      int i, j;
+      short sum=0;
+      for (i=0; i &lt; 256; i++)
+	      for (j=0; j &lt; 256; j++)
+		      sum+=a[i][j];
+
+      return sum;
+}
+</code></pre>
+<p>A.4，31/32</p>
+<p>B.4，15/16</p>
+<p>C.2，31/32</p>
+<p>D.2，15/16</p>
+<p>解析：  C、<code>a[1][0]</code>所映射的cache组号为<code>[(3200+(1×256+0)×2)/64] mod (16/2) = 2</code>。</p>
+<p>程序A的数据cache命中率分析如下：<code>a[0][0]</code>位于主存第3200/64=50块的起始处，按照数组访问顺序<code>a[0][0]、a[0][1]、……、a[0][255]、a[1][0]、a[1][1]、……、a[1][255]、……</code>，总是每64B/2B=32个数组元素组成一个主存块，被轮流装入数据cache的第2、3、……、7、0、1、…….、7、0、……. 组内的cache行中，因而这每一块的32个数组元素中，总是第一次不命中，以后每次都命中，因而命中率为31/32。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="第四周高速缓存概述.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="第六周虚拟存储器.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="第四周高速缓存概述.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="第六周虚拟存储器.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
